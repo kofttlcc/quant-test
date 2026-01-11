@@ -1,0 +1,9 @@
+{
+  "gemini_api_url": "http://127.0.0.1:8045",
+  "gemini_api_key": "test-key-12345",
+  "gemini_model": "gemini-3-pro-high",
+  "tianapi_key": "",
+  "api_port": 5001,
+  "enable_mock": true,
+  "updated_at": "2026-01-09 22:11:54"
+}

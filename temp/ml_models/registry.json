@@ -1,0 +1,61 @@
+{
+  "models": {
+    "mlp": [
+      {
+        "version": "v1.0",
+        "timestamp": "2026-01-10 21:26:13",
+        "path": "temp/ml_models/archive/mlp_v1.0.pkl",
+        "params": {
+          "learning_rate": 0.01
+        },
+        "metrics": {}
+      },
+      {
+        "version": "v1.1",
+        "timestamp": "2026-01-10 21:26:13",
+        "path": "temp/ml_models/archive/mlp_v1.1.pkl",
+        "params": {
+          "learning_rate": 0.005
+        },
+        "metrics": {}
+      },
+      {
+        "version": "v1.2",
+        "timestamp": "2026-01-10 21:36:59",
+        "path": "temp/ml_models/archive/mlp_v1.2.pkl",
+        "params": {},
+        "metrics": {}
+      },
+      {
+        "version": "v1.3",
+        "timestamp": "2026-01-11 01:04:07",
+        "path": "temp/ml_models/archive/mlp_v1.3.pkl",
+        "params": {
+          "learning_rate": 0.001,
+          "n_estimators": 100
+        },
+        "metrics": {}
+      },
+      {
+        "version": "v1.4",
+        "timestamp": "2026-01-11 01:06:20",
+        "path": "temp/ml_models/archive/mlp_v1.4.pkl",
+        "params": {
+          "learning_rate": 0.001,
+          "n_estimators": 100,
+          "hidden_layers": "(64, 32)"
+        },
+        "metrics": {}
+      }
+    ],
+    "lightgbm": [
+      {
+        "version": "v1.0",
+        "timestamp": "2026-01-10 21:36:59",
+        "path": "temp/ml_models/archive/lightgbm_v1.0.pkl",
+        "params": {},
+        "metrics": {}
+      }
+    ]
+  }
+}
