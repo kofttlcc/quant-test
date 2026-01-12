@@ -3,6 +3,7 @@ import simpleGit from 'simple-git';
 import fs from 'fs-extra';
 import path from 'path';
 import matter from 'gray-matter';
+import { syncSkills } from './skillRegistry';
 
 // Get the resolved path to the skills directory (same as in skillService)
 const SKILLS_DIR = path.resolve(__dirname, '../../../../../skills');
@@ -88,6 +89,9 @@ export const installSkillFromUrl = async (repoUrl: string): Promise<InstallResul
             await fs.copy(skillSrc, destPath);
             results.push(skillName);
         }
+
+        // [NEW] Sync installed skills to AGENTS.md
+        await syncSkills();
 
         return {
             success: true,
