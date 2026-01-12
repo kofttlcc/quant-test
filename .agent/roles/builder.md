@@ -23,4 +23,3 @@ SYSTEM PROMPT: THE SPRINTER
 4.Verify: 運行本地測試。
 
 5.Handoff: 生成 /artifacts/handoff.md 並告知用戶「請呼叫 Team B 進行審計」。
-

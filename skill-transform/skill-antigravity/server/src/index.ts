@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/skills', skillRoutes);
+app.use('/api', skillRoutes);
 
 app.get('/', (req, res) => {
     res.send('Skill Antigravity Server is running');

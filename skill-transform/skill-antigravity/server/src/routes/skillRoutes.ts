@@ -1,10 +1,10 @@
-
 import { Router } from 'express';
-import * as skillController from '../controllers/skillController';
+import { getSkills, importSkill, getMarketplaceFeatures } from '../controllers/skillController';
 
 const router = Router();
 
-router.get('/local', skillController.getSkills);
-router.post('/import', skillController.importSkill);
+router.get('/skills/local', getSkills);
+router.post('/skills/import', importSkill);
+router.get('/market/features', getMarketplaceFeatures);
 
 export default router;

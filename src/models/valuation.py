@@ -99,13 +99,14 @@ class ValuationEngine:
                 
             return True
         except requests.exceptions.RequestException as e:
-            logger.error(f"Network error fetching data: {e}")
+            logger.error(f"[{self.ticker}] Network error fetching data: {e}")
             return False
         except ValueError as e:
-            logger.error(f"Data parsing error: {e}")
+            logger.error(f"[{self.ticker}] Data parsing error: {e}")
             return False
-        except Exception as e:
-            logger.error(f"Unexpected error in _fetch_data: {e}")
+        except Exception:
+            # MEM-003: Log full traceback for unexpected errors
+            logger.exception(f"[{self.ticker}] Unexpected error in _fetch_data")
             return False
 
     def _get_ttm_metric(self, metric_name: str) -> float:
@@ -152,7 +153,11 @@ class ValuationEngine:
         if not fcf or fcf <= 0:
             return None
             
-        shares = self.info.get('sharesOutstanding', 1)
+        shares = self.info.get('sharesOutstanding')
+        if not shares or shares <= 0:
+             logger.error(f"[{self.ticker}] Missing or invalid Shares Outstanding data. Cannot calculate per-share value.")
+             return None
+
         net_debt = self.info.get('totalDebt', 0) - self.info.get('totalCash', 0)
         
         # Projection (5 Years)
