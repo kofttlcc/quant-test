@@ -19,7 +19,14 @@ export const useSkills = () => {
                 throw new Error('Failed to fetch skills');
             }
             const data = await response.json();
-            setSkills(data);
+            // 過濾掉無效數據 (缺少必需字段的對象)
+            const validSkills = data.filter((skill: any) =>
+                skill &&
+                typeof skill === 'object' &&
+                typeof skill.name === 'string' &&
+                typeof skill.description === 'string'
+            );
+            setSkills(validSkills);
         } catch (err: any) {
             setError(err.message);
         } finally {

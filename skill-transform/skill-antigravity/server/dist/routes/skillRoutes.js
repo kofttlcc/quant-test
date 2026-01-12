@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const skillController_1 = require("../controllers/skillController");
+const router = (0, express_1.Router)();
+router.get('/skills/local', skillController_1.getSkills);
+router.post('/skills/import', skillController_1.importSkill);
+router.post('/skills/transform', skillController_1.transformSkill);
+router.post('/skills/transform-all', skillController_1.transformAll);
+router.delete('/skills/uninstall/:skillName', skillController_1.uninstallSkill);
+router.delete('/skills/uninstall-all', skillController_1.uninstallAll);
+router.get('/skills/check-adapted/:skillName', skillController_1.checkAdapted);
+router.get('/market/features', skillController_1.getMarketplaceFeatures);
+exports.default = router;

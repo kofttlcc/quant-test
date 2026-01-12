@@ -31,11 +31,17 @@ export interface MarketplaceData {
     categories: MarketplaceCategory[];
 }
 
+export interface ImportResult {
+    success: boolean;
+    message: string;
+}
+
 export const useMarketplace = () => {
     const [data, setData] = useState<MarketplaceData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [importing, setImporting] = useState<string | null>(null);
+    const [lastResult, setLastResult] = useState<ImportResult | null>(null);
 
     useEffect(() => {
         fetchMarketplace();
@@ -57,9 +63,11 @@ export const useMarketplace = () => {
         }
     };
 
-    const importFromMarket = async (url: string, name: string) => {
+    const importFromMarket = async (url: string, name: string): Promise<ImportResult> => {
         try {
             setImporting(name);
+            setLastResult(null);
+
             const response = await fetch('http://localhost:3001/api/skills/import', {
                 method: 'POST',
                 headers: {
@@ -68,19 +76,28 @@ export const useMarketplace = () => {
                 body: JSON.stringify({ url })
             });
 
+            const resultData = await response.json();
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || '導入失敗');
+                const errorMessage = resultData.error || '導入失敗';
+                const result = { success: false, message: `❌ 導入失敗: ${errorMessage}` };
+                setLastResult(result);
+                return result;
             }
 
-            const result = await response.json();
-            alert(`成功導入技能: ${result.message}`);
+            const result = { success: true, message: `✅ ${resultData.message}` };
+            setLastResult(result);
+            return result;
         } catch (err: any) {
-            alert(`導入失敗: ${err.message}`);
+            const result = { success: false, message: `❌ 網絡錯誤: ${err.message}` };
+            setLastResult(result);
+            return result;
         } finally {
             setImporting(null);
         }
     };
 
-    return { data, loading, error, importFromMarket, importing };
+    const clearResult = () => setLastResult(null);
+
+    return { data, loading, error, importFromMarket, importing, lastResult, clearResult };
 };
