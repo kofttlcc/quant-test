@@ -38,6 +38,7 @@ class MacroSnapshot:
     # 因子 1: VIX
     vix_value: float
     vix_status: str          # "Low", "Normal", "High", "Extreme"
+    vix_change: float        # Daily Change %
     vix_score: int           # Component Score
     
     # 因子 2: 利率結構
@@ -48,9 +49,14 @@ class MacroSnapshot:
     
     # 因子 3: 情緒與廣度
     market_breadth: float    # ADR (Advance/Decline Ratio)
+    adv_dec_ratio: float     # Alias for API compatibility
     sentiment_score: float   # -1.0 to 1.0
     sentiment_label: str     # "Bullish", "Neutral", "Bearish"
     sentiment_score_comp: int # Component Score
+    
+    # Fear & Greed (Based on Sentiment)
+    fear_greed_value: int    # 0-100
+    fear_greed_label: str    # "Extreme Fear", "Fear", "Neutral", "Greed", "Extreme Greed"
     
     # 元數據
     timestamp: str
@@ -92,15 +98,20 @@ class MacroDashboard:
         quality = "Live"
         
         # 1. Fetch VIX
+        vix_change = 0.0
         try:
             vix_t = yf.Ticker("^VIX")
             hist = vix_t.history(period="5d")
             if not hist.empty:
                 vix = float(hist['Close'].iloc[-1])
+                if len(hist) >= 2:
+                    prev_vix = float(hist['Close'].iloc[-2])
+                    vix_change = (vix / prev_vix) - 1.0
             else:
                 vix = 15.0
                 quality = "Mixed"
-        except:
+        except Exception as e:
+            logger.warning(f"VIX fetch failed: {e}")
             vix = 15.0
             quality = "Mixed"
             
@@ -113,7 +124,8 @@ class MacroDashboard:
             
             y10 = float(tnx.history(period="1d")['Close'].iloc[-1])
             y2 = float(irx.history(period="1d")['Close'].iloc[-1]) # Using IRX as short rate proxy
-        except:
+        except Exception as e:
+            logger.warning(f"Yield fetch failed: {e}")
             y10, y2 = 4.0, 4.0
             quality = "Mixed"
             
@@ -140,8 +152,9 @@ class MacroDashboard:
             # ADR estimation
             breadth = 1.0 + (rsp_perf - spy_perf) * 10 
             breadth = max(0.5, min(1.5, breadth))
-        except:
-            breadth = 1.0 # Neutral
+        except Exception as e:
+            logger.warning(f"Breadth fetch failed: {e}")
+            breadth = 1.0  # Neutral
             
         # --- CALCULATION ENGINE ---
         
@@ -172,20 +185,34 @@ class MacroDashboard:
         if final_risk < 30: mode = "Risk On"
         elif final_risk > 75: mode = "Risk Off" # Global Rule > 80 is strictly Risk Off, we set 75 warn
         
+        # Fear & Greed Calculation (Mapping -1.0~1.0 to 0~100)
+        fg_value = int(((sent_val + 1.0) / 2.0) * 100)
+        fg_value = max(0, min(100, fg_value))
+        
+        if fg_value < 25: fg_label = "Extreme Fear"
+        elif fg_value < 45: fg_label = "Fear"
+        elif fg_value < 55: fg_label = "Neutral"
+        elif fg_value < 75: fg_label = "Greed"
+        else: fg_label = "Extreme Greed"
+        
         return MacroSnapshot(
             risk_score=final_risk,
             risk_mode=mode,
             vix_value=round(vix, 2),
             vix_status=self._vix_stat(vix),
+            vix_change=round(vix_change, 4),
             vix_score=int(v_score),
             yield_10y=round(y10, 2),
             yield_2y=round(y2, 2),
             yield_spread=round(spread, 0),
             yield_score=int(y_score),
             market_breadth=round(breadth, 2),
+            adv_dec_ratio=round(breadth, 2),
             sentiment_score=round(sent_val, 2),
             sentiment_label="Bullish" if sent_val > 0.2 else "Bearish" if sent_val < -0.2 else "Neutral",
             sentiment_score_comp=int(s_score),
+            fear_greed_value=fg_value,
+            fear_greed_label=fg_label,
             timestamp=datetime.now().isoformat(),
             data_quality=quality
         )
@@ -199,9 +226,10 @@ class MacroDashboard:
         return MacroSnapshot(
             risk_score=50,
             risk_mode="Neutral",
-            vix_value=20.0, vix_status="Normal", vix_score=50,
+            vix_value=20.0, vix_status="Normal", vix_change=0.0, vix_score=50,
             yield_10y=4.0, yield_2y=4.0, yield_spread=0, yield_score=50,
-            market_breadth=1.0, sentiment_score=0.0, sentiment_label="Neutral", sentiment_score_comp=50,
+            market_breadth=1.0, adv_dec_ratio=1.0, sentiment_score=0.0, sentiment_label="Neutral", sentiment_score_comp=50,
+            fear_greed_value=50, fear_greed_label="Neutral",
             timestamp=datetime.now().isoformat(),
             data_quality="Fallback"
         )

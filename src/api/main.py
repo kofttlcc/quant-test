@@ -35,7 +35,6 @@ except ImportError as e:
 # 可選模塊：導入失敗僅記錄警告
 try:
     from src.models.sentiment_engine import SentimentEngine
-    from src.models.sentiment_engine import SentimentEngine
     # Module B: Macro Dashboard (New)
     from src.models.macro.macro_dashboard import get_macro_snapshot, get_next_event
 except ImportError as e:
@@ -973,7 +972,7 @@ def run_backtest():
                 # Attempt to convert index
                 try:
                     temp_df.index = pd.to_datetime(temp_df.index)
-                except:
+                except Exception:
                     pass
 
         for index, row in temp_df.iterrows():

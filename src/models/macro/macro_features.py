@@ -74,7 +74,8 @@ class InterestRateAnalyzer:
                 if isinstance(irx.columns, pd.MultiIndex):
                     irx.columns = irx.columns.get_level_values(0)
                 self.short_rate_data = irx
-            except:
+            except Exception as e:
+                logger.debug(f"Short rate fetch failed: {e}")
                 pass
                 
             logger.info(f"Interest rate data loaded: {len(tnx)} rows")
@@ -134,7 +135,7 @@ class InterestRateAnalyzer:
             long_rate = float(self.data['Close'].iloc[-1])
             short_rate = float(self.short_rate_data['Close'].iloc[-1])
             return long_rate - short_rate
-        except:
+        except Exception:
             return None
 
 

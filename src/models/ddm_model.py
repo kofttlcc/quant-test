@@ -84,7 +84,7 @@ class DDMValuation:
                  tnx = yf.Ticker("^TNX")
                  hist = tnx.history(period="1d")
                  risk_free_rate = float(hist.iloc[-1]['Close']) / 100 if not hist.empty else 0.042
-             except:
+             except Exception:
                  risk_free_rate = 0.042
 
         return risk_free_rate + self._beta * market_premium

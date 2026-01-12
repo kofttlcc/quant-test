@@ -192,7 +192,7 @@ class SectorRotationAnalyzer:
             current = float(data['Close'].iloc[-1])
             past = float(data['Close'].iloc[-days])
             return (current / past) - 1
-        except:
+        except Exception:
             return 0.0
     
     def get_rotation_signal(self) -> SectorRotationSignal:

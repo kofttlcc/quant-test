@@ -35,8 +35,8 @@ def get_macro_report():
         response = requests.get(f"{BACKEND_URL}/api/macro/report", timeout=5)
         if response.status_code == 200:
             return response.json()
-    except:
-        print(f"{Colors.WARNING}⚠️ API unreachable, switching to local Library mode...{Colors.ENDC}")
+    except Exception as e:
+        print(f"{Colors.WARNING}⚠️ API unreachable ({e}), switching to local Library mode...{Colors.ENDC}")
         
     # Local fallback
     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -62,7 +62,7 @@ def get_valuation(ticker):
         response = requests.get(f"{BACKEND_URL}/api/stock/{ticker}/valuation", timeout=15)
         if response.status_code == 200:
             return response.json()
-    except:
+    except Exception:
         from src.models.valuation_enhanced import EnhancedValuationEngine
         engine = EnhancedValuationEngine(ticker)
         res = engine.assess_value()
@@ -85,7 +85,7 @@ def get_ml_signal(ticker):
         response = requests.get(f"{BACKEND_URL}/api/stock/{ticker}/ml-signal", timeout=15)
         if response.status_code == 200:
             return response.json()
-    except:
+    except Exception:
         # Fallback requires loading ML models which might be slow
         print("  (Local ML inference might take a moment...)")
         from src.models.ml.ensemble import MLEnsemble
