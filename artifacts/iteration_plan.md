@@ -56,13 +56,13 @@
 > **目標**: 補齊基礎金融分析能力。
 
 #### [NEW] [src/models/pricing.py](file:///Users/jerrylee/coding/src/models/pricing.py)
-- [ ] 實作 `trad-fi-pricing` (Black-Scholes & Greeks)。
+- [x] 實作 `trad-fi-pricing` (Black-Scholes & Greeks)。
 
 #### [NEW] [src/models/alpha_beta.py](file:///Users/jerrylee/coding/src/models/alpha_beta.py)
-- [ ] 實作 `trad-fi-capm` 用於計算資產相對於 Benchmark 的 Beta/Alpha。
+- [x] 實作 `trad-fi-capm` 用於計算資產相對於 Benchmark 的 Beta/Alpha。
 
 #### [MODIFY] [src/backend/backtest_engine.py](file:///Users/jerrylee/coding/src/backend/backtest_engine.py)
-- [ ] 在 `run_backtest` 的 Metrics 計算中集成 `trad-fi-risk` (VaR, CVaR, Sortino)。
+- [x] 在 `run_backtest` 的 Metrics 計算中集成 `trad-fi-risk` (VaR, CVaR, Sortino)。
 
 ### 第三階段：AI 模型升級 (AI Upgrade)
 > **負責人**: @mle
