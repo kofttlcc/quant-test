@@ -1,5 +1,11 @@
+---
+description: 
+---
+
 description: Team A (Builder) 標準作業程序：從需求到代碼實現
 Vibe Build Workflow
+@.agent/roles/builder.md @.agent/rules/constitution.md
+
 Step 1: Context Loading // turbo
 1.Read .agent/rules/constitution.md to confirm constraints.
 

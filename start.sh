@@ -6,8 +6,8 @@
 set -e
 
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BACKEND_PORT=5001
-FRONTEND_PORT=5173
+BACKEND_PORT=666
+FRONTEND_PORT=8888
 
 # 使用虛擬環境中的 Python
 PYTHON_BIN="$PROJECT_DIR/venv/bin/python"

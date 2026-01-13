@@ -74,37 +74,57 @@ class Backtester:
         # 1. Generate Signals
         strat_df = strategy.generate_signals(df)
         
-        # 2. Calculate Returns
-        # CRITICAL FIX: 移除 Look-ahead Bias
-        # 原代碼使用 shift(-1) 偷看未來收益，現改為正確的時間對齊：
-        # - Asset_Ret[T] = 當日收益率
-        # - Position 需要 shift(1)：T日的持倉決策影響 T+1 日的收益
-        strat_df['Asset_Ret'] = strat_df['Close'].pct_change()
+        # 2. Calculate Returns (CRITICAL FIX: Next Open Execution)
+        # 由於交易在「次日開盤」執行：
+        # - 隔夜時段 (Close[t-1] -> Open[t]): 持有的是「前一日」的倉位 (由 Signal[t-2] 決定)
+        # - 日內時段 (Open[t] -> Close[t]): 持有的是「當日」的倉位 (由 Signal[t-1] 決定，已在 Open[t] 執行)
         
-        # Calculate Turnover for costs
-        strat_df['Turnover'] = strat_df['Position'].diff().abs().fillna(0)
+        if 'Open' in strat_df.columns:
+            # 計算分割收益
+            strat_df['Ret_Gap'] = (strat_df['Open'] / strat_df['Close'].shift(1)) - 1
+            strat_df['Ret_Intraday'] = (strat_df['Close'] / strat_df['Open']) - 1
+            
+            # 對齊持倉
+            # Position 由 Close[t] 產生 -> Next Open[t+1] 執行
+            # Gap[t] (C[t-1]->O[t]): 倉位是 P[t-2]
+            # Intraday[t] (O[t]->C[t]): 倉位是 P[t-1]
+            strat_df['Pos_Gap'] = strat_df['Position'].shift(2).fillna(0)
+            strat_df['Pos_Intraday'] = strat_df['Position'].shift(1).fillna(0)
+            
+            # 組合策略收益: (1 + GapRet) * (1 + IntradayRet) - 1
+            # 這裡分別應用持倉權重
+            # 注意：這裡簡化處理，假設槓桿為 1 或 0 (Long/Flat)
+            # Log Return 可能更精確，但這裡使用 Simple Return 逼近: Ret = P_gap * R_gap + P_intra * R_intra
+            # 為了更精確 Compound:
+            strat_df['Strat_Ret'] = (1 + strat_df['Pos_Gap'] * strat_df['Ret_Gap']) * \
+                                    (1 + strat_df['Pos_Intraday'] * strat_df['Ret_Intraday']) - 1
+                                    
+            # 填充 NaN (第一天)
+            strat_df['Strat_Ret'] = strat_df['Strat_Ret'].fillna(0)
+            
+            # 定義執行價格 (用於 Trade Log)
+            strat_df['Exec_Price'] = strat_df['Open'].shift(-1) # T+1 Open
+        else:
+            # Fallback: 無 Open 數據，只能退回 Close-to-Close
+            logger.warning("No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).")
+            strat_df['Asset_Ret'] = strat_df['Close'].pct_change()
+            strat_df['Strat_Ret'] = strat_df['Position'].shift(1) * strat_df['Asset_Ret']
+            strat_df['Exec_Price'] = strat_df['Close'] # Fallback
+            
+        # Calculate Turnover & Cost
+        # 交易發生在 Open[t]，倉位從 P[t-2] 變為 P[t-1]
+        # Diff is between P[t-1] and P[t-2]
+        # Shift(1) gives P[t-1], Shift(2) gives P[t-2]
+        strat_df['Turnover'] = (strat_df['Position'].shift(1) - strat_df['Position'].shift(2)).abs().fillna(0)
         strat_df['Cost'] = strat_df['Turnover'] * self.commission_rate
         
-        # Position lagged by 1: T日持倉在 T+1 日生效
-        strat_df['Strat_Ret'] = (strat_df['Position'].shift(1) * strat_df['Asset_Ret']) - strat_df['Cost']
-        strat_df['Strat_Ret'] = strat_df['Strat_Ret'].fillna(0)
+        # 扣除成本
+        strat_df['Strat_Ret'] = strat_df['Strat_Ret'] - strat_df['Cost']
         
         # 3. Equity Curve
         strat_df['Equity'] = self.initial_capital * (1 + strat_df['Strat_Ret']).cumprod()
+
         
-        # 5. Extract Trades (Phase 12) - (Re-ordered for Analyzer access)
-        # 只記錄「開倉」和「平倉」交易，忽略持倉調整
-        # 交易價格使用次日開盤價（T+1 Open），更接近實際執行價格
-        trades = []
-        trade_returns = []
-        cumulative_pnl = 0.0  # 累計盈虧追蹤
-        
-        # 計算次日開盤價（用於交易執行價格）
-        if 'Open' in strat_df.columns:
-            strat_df['Exec_Price'] = strat_df['Open'].shift(-1)  # T+1 開盤價
-            strat_df['Exec_Price'] = strat_df['Exec_Price'].fillna(strat_df['Close'])  # 最後一日用收盤價
-        else:
-            strat_df['Exec_Price'] = strat_df['Close']  # 無 Open 列時退回使用 Close
         
         # 記錄持倉狀態變化：0 → 非0 = 開倉(BUY)，非0 → 0 = 平倉(SELL)
         strat_df['Was_In_Position'] = (strat_df['Position'].shift(1).fillna(0) > 0)
@@ -118,8 +138,14 @@ class Backtester:
         entry_rows = strat_df[strat_df['Entry']].copy()
         exit_rows = strat_df[strat_df['Exit']].copy()
         
+        # Initialize Trade Logs
+        trades = []
+        trade_returns = []
+        cumulative_pnl = 0.0
+        
         # 記錄所有開倉點
         entry_list = []
+
         for index, row in entry_rows.iterrows():
             date_str = self._format_date(index, strat_df)
             exec_price = row['Exec_Price']  # 使用執行價格

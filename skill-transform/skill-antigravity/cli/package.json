@@ -1,0 +1,37 @@
+{
+    "name": "skill-antigravity",
+    "version": "1.0.0",
+    "description": "一鍵完成 skill 轉換，適配 Antigravity 系統",
+    "type": "module",
+    "main": "./dist/index.js",
+    "bin": {
+        "skill-antigravity": "./dist/index.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "start": "ts-node index.ts",
+        "dev": "ts-node-dev --respawn --transpile-only index.ts"
+    },
+    "keywords": [
+        "skills",
+        "antigravity",
+        "ai-agent",
+        "claude",
+        "skill-sync"
+    ],
+    "author": "Builder",
+    "license": "MIT",
+    "dependencies": {
+        "fs-extra": "^11.2.0",
+        "glob": "^10.3.10",
+        "gray-matter": "^4.0.3",
+        "simple-git": "^3.30.0"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^20.10.6",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.3.3"
+    }
+}

@@ -1,6 +1,8 @@
 
 from flask import Flask, jsonify, request
 import pandas as pd
+import numpy as np
+import math
 import threading
 import logging
 import sys
@@ -49,6 +51,26 @@ except ImportError as e:
 
 app = Flask(__name__)
 storage = ResultStorage() if ResultStorage else None
+
+def sanitize_for_json(obj):
+    """
+    Recursively replace NaN and Infinity with None for JSON serialization.
+    """
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    elif isinstance(obj, dict):
+        return {k: sanitize_for_json(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [sanitize_for_json(item) for item in obj]
+    elif isinstance(obj, (np.integer, np.floating)):
+        if np.isnan(obj) or np.isinf(obj):
+            return None
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return sanitize_for_json(obj.tolist())
+    return obj
 
 # 啟動時加載持久化配置
 try:
@@ -990,7 +1012,7 @@ def run_backtest():
                 "close": row['Close']
             })
 
-        return jsonify({
+        response_data = {
             "ticker": ticker,
             "period": "Since " + start_date,
             "metrics": result['metrics'],
@@ -1000,7 +1022,9 @@ def run_backtest():
             "trades": result.get('trades', []),  # Phase 12
             "daily_returns": result.get('daily_returns', []),  # 新增
             "distribution": Backtester.get_return_distribution(result.get('daily_returns', []))  # 新增
-        })
+        }
+        
+        return jsonify(sanitize_for_json(response_data))
         
     except Exception as e:
         logger.error(f"Backtest error: {e}")
@@ -1140,5 +1164,5 @@ if __name__ == "__main__":
     print("--- SELF-TEST END ---")
     
     # Start Real Server
-    print(">>> Starting API Server on Port 5001...")
-    start_server(port=5001)
+    print(">>> Starting API Server on Port 666...")
+    start_server(port=666)
