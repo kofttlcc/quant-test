@@ -69,11 +69,11 @@
 > **目標**: 提升模型的預測能力與泛化穩健性。
 
 #### [NEW] [src/models/validation.py](file:///Users/jerrylee/coding/src/models/validation.py)
-- [ ] 實作 `quant-ml-validation` (Combinatorial Purged CV) 類。
+- [x] 實作 `quant-ml-validation` (Combinatorial Purged CV) 類。
 
 #### [MODIFY] [src/models/arena/lstm_predictor.py](file:///Users/jerrylee/coding/src/models/arena/lstm_predictor.py)
-- [ ] 重構 `MLPTrendModel`，引入 `quant-ml-mlp` 的 Embedding 層架構。
-- [ ] 在 `train` 方法中接入 `validation.py` 的 CV 流程。
+- [x] 重構 `MLPTrendModel`，引入 `quant-ml-mlp` 的 Embedding 層架構。
+- [x] 在 `train` 方法中接入 `validation.py` 的 CV 流程。
 
 ## 驗證計畫
 1. **單元測試**: 為每個新模組編寫 `tests/`。
