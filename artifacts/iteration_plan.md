@@ -27,6 +27,21 @@
 
 ## 迭代路線圖 (Roadmap)
 
+### 第零階段：緊急漏洞修復 (Emergency Fixes)
+> **負責人**: 全員
+> **目標**: 修復深層審計中發現的危急代碼漏洞。
+
+#### [MODIFY] [src/data_loader/data_loader.py](file:///Users/jerrylee/coding/src/data_loader/data_loader.py)
+- [ ] **[CRITICAL]** 移除 `ffill().bfill()` 暴力填充，接入 `data-gov-interp` 處理缺失值。
+- [ ] 增加並發鎖機制。
+
+#### [MODIFY] [src/models/arena/adversarial_arena.py](file:///Users/jerrylee/coding/src/models/arena/adversarial_arena.py)
+- [ ] **[CRITICAL]** 統一訓練/驗證集切分邏輯，消除數據洩露。
+- [ ] 嚴格對齊 Signal 與 Return 計算 ROI。
+
+#### [MODIFY] [src/models/strategy_logic.py](file:///Users/jerrylee/coding/src/models/strategy_logic.py)
+- [ ] 移除 `Position` 的 `ffill`，正確處理非交易日狀態。
+
 ### 第一階段：數據底層重構 (Data Foundation)
 > **負責人**: @dataeng
 > **目標**: 確保所有進入模型的數據均經過魯棒清洗與正確插值。
