@@ -218,27 +218,51 @@ class WalkForwardValidator:
                 actuals=y_test_clean
             )
             
+            # [LOW-002] 擴展指標打印
+            metrics_extended = self._calculate_metrics(test_pred, y_test_clean)
+            
             results.append(result)
             logger.info(
                 f"  Fold {fold_id}: Train Sharpe={train_metric:.2f}, "
-                f"Test Sharpe={test_metric:.2f}"
+                f"Test Sharpe={test_metric:.2f}, Test WR={metrics_extended['Win_Rate']:.1%}"
             )
         
         return results
     
-    def _calculate_sharpe(self, predictions: np.ndarray, actuals: np.ndarray) -> float:
-        """計算策略 Sharpe Ratio"""
+    def _calculate_metrics(self, predictions: np.ndarray, actuals: np.ndarray) -> Dict[str, float]:
+        """
+        [LOW-002] 計算更全面的策略指標
+        
+        Returns:
+            Dict: {Sharpe, Win_Rate, Profit_Factor, ...}
+        """
         strategy_returns = predictions * actuals
         if len(strategy_returns) < 2:
-            return 0.0
+             return {"Sharpe": 0.0, "Win_Rate": 0.0, "Profit_Factor": 0.0}
         
+        # 1. Sharpe
         mean_ret = np.mean(strategy_returns)
         std_ret = np.std(strategy_returns)
+        sharpe = (mean_ret / std_ret) * np.sqrt(252) if std_ret > 1e-8 else 0.0
         
-        if std_ret < 1e-8:
-            return 0.0
-            
-        return (mean_ret / std_ret) * np.sqrt(252)
+        # 2. Win Rate
+        wins = strategy_returns > 0
+        win_rate = np.mean(wins)
+        
+        # 3. Profit Factor
+        gross_profit = np.sum(strategy_returns[strategy_returns > 0])
+        gross_loss = np.abs(np.sum(strategy_returns[strategy_returns < 0]))
+        profit_factor = gross_profit / gross_loss if gross_loss > 0 else np.inf
+        
+        return {
+            "Sharpe": sharpe,
+            "Win_Rate": win_rate,
+            "Profit_Factor": profit_factor
+        }
+
+    def _calculate_sharpe(self, predictions: np.ndarray, actuals: np.ndarray) -> float:
+        """保留舊方法兼容性 (Deprecated)"""
+        return self._calculate_metrics(predictions, actuals)["Sharpe"]
     
     def get_aggregate_metrics(self, results: List[WalkForwardResult]) -> Dict[str, float]:
         """獲取聚合指標"""
