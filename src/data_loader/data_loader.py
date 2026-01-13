@@ -203,8 +203,8 @@ class DataLoader:
         # 如果需要，這裡可以處理列名映射 (比如有些源是大寫全稱)
         
         # 處理空值: 使用 Brownian Bridge (CRITICAL FIX)
-        # df = df.ffill().bfill()
-        df = fill_missing_values(df, method='brownian')
+        # [MED-005] Removed redundant cleaning. GovernanceCleaner handles this.
+        # df = fill_missing_values(df, method='brownian')
         
         return df
 

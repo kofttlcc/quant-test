@@ -97,6 +97,10 @@ class HierarchicalRiskParity(PortfolioOptimizer):
     """
     
     def optimize(self) -> pd.Series:
+        # [MED-002] Check for singular covariance
+        if np.linalg.cond(self.cov) > 1e10:
+             logger.warning(f"Covariance matrix is near-singular (cond={np.linalg.cond(self.cov):.2e}). HRP may be unstable.")
+
         # 1. Tree Clustering
         corr = self.returns.corr()
         dist = np.sqrt(0.5 * (1 - corr))
