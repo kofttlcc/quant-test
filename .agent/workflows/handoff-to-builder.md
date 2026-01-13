@@ -2,39 +2,45 @@
 description: Builder 接收 Auditor 審計反饋並執行下一階段
 ---
 
-# Builder 接棒指令
+---
+description: Builder 接收 Auditor 審計反饋並執行下一階段的強制協議
+---
 
-請以 @builder 身份接收 @auditor 的審計結果並執行下一階段工作。
+# Builder 接棒協議 (Handoff Protocol)
 
-## 執行步驟
+請以 @builder 身份執行此協議。
 
-// turbo
-1. 讀取角色定義 `.agent/roles/builder.md` 和規則 `.agent/rules/constitution.md`
+## ⚠️ CRITICAL INPUT CHECK (輸入強制驗證)
+**在你執行任何代碼或規劃之前，必須先執行此驗證步驟。**
 
-// turbo
-2. 讀取 Auditor 移交物：
-   - `artifacts/auditor_handoff.md`（如有修正要求）
-   - `artifacts/audit_approval_*.md`（審計批准報告）
-   - `artifacts/iteration_plan.md`（迭代計劃）
+1.  **Scan Artifacts (掃描 Auditor 的產出)**:
+    * 目標 A：`artifacts/auditor_handoff.md` (Auditor 的反饋單)
+    * 目標 B：`artifacts/audit_approval_*.md` (Auditor 的通行證)
 
-3. 如果有**拒絕/待修正項**：
-   - 執行所有阻塞項修正
-   - 更新相關產出物
-   - 更新 `handoff_notes.md`
-   - 提交變更後通知用戶呼叫 @auditor 重審
+2.  **Verify Status & Lock Path (狀態驗證與路徑鎖定)**:
+    * **情況 A (被拒絕/需修正)**:
+        * 條件：發現 `auditor_handoff.md` 為最新修改。
+        * **Action**: 讀取該文件中的 "Blockers List"。 **(注意：不要去讀 `handoff_notes.md`，那是你自己的筆記)**
+        * ➡️ **鎖定路徑**: 進入 **修正模式 (Fix Mode)**。
+    * **情況 B (已批准)**:
+        * 條件：發現 `audit_approval_*.md` 為最新。
+        * **Action**: 讀取該文件中的授權指令。
+        * ➡️ **鎖定路徑**: 進入 **執行模式 (Execute Mode)**。
+    * **情況 C (無文件)**:
+        * 🛑 **HARD STOP**: 嚴禁自行開始工作。
+        * 回覆：「錯誤：找不到 Auditor 的審計報告。請檢查 `artifacts/`。」
 
-4. 如果**已批准**：
-   // turbo
-   - 執行合併命令（從審計報告中取得）
-   - 創建下一階段分支：`git checkout -b feat/phase[N]-[name]`
-   - 開始執行 `iteration_plan.md` 中的下一階段任務
+---
 
-5. 完成階段工作後：
-   - 生成 `artifacts/walkthrough_phase[N].md`
-   - 更新 `artifacts/handoff_notes.md`
-   - 更新 `iteration_plan.md` 標記完成項 `[x]`
-   - 提交所有變更
+## 執行步驟 (基於鎖定路徑)
 
-## 執行完成後
+### 路徑 A：修正模式 (Fix Mode)
+1.  **Fix Blockers**: 針對 `auditor_handoff.md` 的要求進行修改（修改 Plan 或 Code）。
+2.  **Update Handoff**: 更新 `artifacts/handoff_notes.md`，說明已修復的項目。
+3.  **STOP**: 通知用戶「修正已完成，請重新呼叫 Auditor。」
 
-通知用戶：「Build complete. 請呼叫 /handoff-to-auditor 進行審計。」
+### 路徑 B：執行模式 (Execute Mode)
+1.  **Activate Workflow**: 調用 `/vibe-build` 邏輯。
+    * 若是 **Plan Approved**: 進入 `vibe-build` Step 3 (Coding)。
+    * 若是 **Code Approved**: 執行合併並準備下一階段規劃 (`vibe-build` Step 1)。
+2.  **Deliver**: 更新 `handoff_notes.md` 並通知用戶。

@@ -110,21 +110,33 @@ class AITrainer:
                 
             job.progress = 20
             
-            # 3. Simulate Training Loop for Visualization (or hook into real training)
-            # Since actual sklearn/lgbm fit is blocking, we can't easily get real-time progress 
-            # without custom callbacks. For now, we simulate progress steps around the blocking call.
+            # 3. Attach Callbacks & Train
+            job.log("Training model with progress tracking...")
             
-            job.log("Fitting model (this may take a while)...")
-            
-            # TODO: Add real callbacks to models later.
-            # For now, just call generate_signals or train
+            # Callback Hooks
+            def on_lgbm_epoch(epoch, logs):
+                # LightGBM epoch is 0-indexed
+                total_rounds = config.n_estimators
+                progress = int((epoch / total_rounds) * 80) + 20 # 20% -> 100%
+                job.progress = min(progress, 99)
+                if epoch % 10 == 0:
+                    job.log(f"Epoch {epoch}/{total_rounds}")
+
+            def on_mlp_fold(fold, total_folds, score):
+                # MLP Fold is 0-indexed
+                progress = int(((fold + 1) / total_folds) * 80) + 20
+                job.progress = min(progress, 99)
+                job.log(f"CV Fold {fold+1}/{total_folds} - Acc: {score:.4f}")
+
             if job.model_type == 'lightgbm':
-               # LightGBM training is fast usually
-               model.generate_signals(df)
+                model.on_epoch_end = on_lgbm_epoch
+                model.generate_signals(df)
+                
             elif job.model_type == 'mlp':
-               model.train(df, save=False)
+                model.on_fold_end = on_mlp_fold
+                model.train(df, save=False)
                
-            job.progress = 90
+            job.progress = 100
             job.log("Training complete. Saving model...")
             
             # 4. Save and Register
@@ -152,7 +164,6 @@ class AITrainer:
                 "version": version,
                 "path": archive_path
             }
-            job.progress = 100
             job.status = "completed"
             job.end_time = datetime.now()
             job.log(f"Job finished successfully. Version: {version}")

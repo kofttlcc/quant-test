@@ -1,0 +1,6 @@
+/Users/jerrylee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+--- Testing Portfolio Backtest ---
+Metrics: {'VaR_95': -0.025646023474177635, 'CVaR_95': -0.028623547648779925, 'Sortino_Ratio': -2.393964280220217, 'Total_Return': np.float64(-0.1560133052878767), 'Final_Equity': np.float64(8439.866947121232), 'Sharpe_Ratio': np.float64(-1.7917877462775529)}
+[PASS] Portfolio Backtest ran successfully.
+Final Equity: 8439.87

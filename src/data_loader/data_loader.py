@@ -21,6 +21,11 @@ except ImportError:
     # Fallback/Test mode
     from cleaning import fill_missing_values
 
+try:
+    from src.data_pipeline.cleaning import DataCleaner as GovernanceCleaner
+except ImportError:
+    GovernanceCleaner = None
+
 # 配置日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -160,6 +165,14 @@ class DataLoader:
                         self._cache_timestamps[t] = time.time()
                     results[t] = df
                 
+                # Apply Governance Cleaning (Phase 1)
+                if GovernanceCleaner:
+                    cleaner = GovernanceCleaner()
+                    for t in results:
+                        results[t], report = cleaner.clean_data(results[t], method='winsorize')
+                        if report['outliers_detected'] > 0:
+                            logger.info(f"[{t}] Data Governance: {report}")
+
                 logger.info("數據下載完成")
                 return results
                 

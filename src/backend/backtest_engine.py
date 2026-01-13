@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'
 try:
     from src.models.strategy_logic import MomentumStrategy
     from src.data_loader.downloader import fetch_data
-except ImportError:
+except (ImportError, TypeError):
     # Fallback
     pass
 
@@ -262,6 +262,62 @@ class Backtester:
             "trades": trades, # Phase 12
             "daily_returns": strat_df['Strat_Ret'].tolist()  # 新增: 用於收益分佈
         }
+
+    def run_portfolio_backtest(self, asset_returns: pd.DataFrame, weights: pd.DataFrame) -> dict:
+        """
+        Run portfolio backtest with dynamic weights.
+        
+        Args:
+            asset_returns: DataFrame of asset returns (index=Date, columns=Assets)
+            weights: DataFrame of asset weights (index=Date, columns=Assets)
+            
+        Returns:
+            dict: Metrics and Equity Curve
+        """
+        # Align dates
+        common_idx = asset_returns.index.intersection(weights.index)
+        if len(common_idx) == 0:
+            return {"error": "No overlapping dates between returns and weights"}
+            
+        returns = asset_returns.loc[common_idx]
+        w = weights.loc[common_idx]
+        
+        # Portfolio Return = sum(Weight * Return)
+        # Shift weights because allocation at t affects return at t+1 (or same day depending on execution)
+        # Assuming weights are set at Open/Close of t, and capturing Return of t (if rebalanced at Open)
+        # Standard: Weights determined at t-1 Close (or t Open), applied to t Returns.
+        
+        # Here we assume 'weights' row T is the allocation for day T.
+        port_ret = (returns * w).sum(axis=1)
+        
+        # Subtract Turnover Cost
+        turnover = w.diff().abs().sum(axis=1).fillna(0)
+        cost = turnover * self.commission_rate
+        
+        net_ret = port_ret - cost
+        
+        # Equity Curve
+        equity = self.initial_capital * (1 + net_ret).cumprod()
+        
+        # Metrics
+        strat_df = pd.DataFrame({'Strat_Ret': net_ret, 'Equity': equity})
+        
+        # Reuse risk metrics
+        metrics = self._calc_risk_metrics(net_ret)
+        metrics['Total_Return'] = equity.iloc[-1] / self.initial_capital - 1
+        metrics['Final_Equity'] = equity.iloc[-1]
+        metrics['Sharpe_Ratio'] = self._calc_sharpe(net_ret)
+        
+        return {
+            "metrics": metrics,
+            "equity_curve": equity.tolist(),
+            "dates": [str(d) for d in equity.index],
+            "daily_returns": net_ret.tolist()
+        }
+    
+    def _calc_sharpe(self, returns, rf=0.0):
+        if returns.std() == 0: return 0
+        return (returns.mean() - rf/252) / returns.std() * np.sqrt(252)
     
     def _calc_risk_metrics(self, returns: pd.Series, alpha=0.95, rf=0.0) -> dict:
         """
