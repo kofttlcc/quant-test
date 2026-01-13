@@ -6,6 +6,7 @@ import sys
 import os
 from datetime import datetime
 import pandas as pd
+import numpy as np
 import time
 
 # Add root to path
@@ -136,6 +137,77 @@ class AITrainer:
                 model.on_fold_end = on_mlp_fold
                 model.train(df, save=False)
                
+            job.progress = 95
+            
+            # --- Phase 4: Compute Feature Importance ---
+            feature_importance = {}
+            try:
+                job.log("Computing Feature Importance...")
+                # Lazy import to avoid circular dependency issues if any
+                from src.models.arena.feature_selector import FeatureSelector
+                
+                # Prepare Validation Data (using last 20%)
+                split_idx = int(len(df) * 0.8)
+                val_df = df.iloc[split_idx:].copy()
+                
+                if not val_df.empty:
+                    # Target construction (Same as in training logic)
+                    val_df['Target'] = val_df['Close'].shift(-1) > val_df['Close']
+                    val_df = val_df.dropna()
+                    
+                    if not val_df.empty:
+                        X_val = val_df.drop(columns=['Target', 'Date', 'Open', 'High', 'Low', 'Close', 'Volume'], errors='ignore')
+                        # Ensure only numeric
+                        X_val = X_val.select_dtypes(include=[np.number])
+                        y_val = val_df['Target'].astype(int)
+                        
+                        selector = FeatureSelector(model, n_repeats=3) # Low repeats for speed
+                        # Note: 'model' wrapper needs to expose predict/score for permutation_importance
+                        # Our wrappers (LightGBMPredictor, MLPPredictor) might need adaptation if they don't match sklearn exactly.
+                        # LightGBMPredictor has 'predict_proba', MLPPredictor has 'predict'.
+                        # Let's check compat or wrap it.
+                        
+                        # Wrapper for sklearn compatibility
+                        class SklearnWrapper:
+                            def __init__(self, predictor, model_type):
+                                self.predictor = predictor
+                                self.model_type = model_type
+                                
+                            def predict(self, X):
+                                # Reconstruct df context if needed, but predictors usually take df.
+                                # But FeatureSelector passes numpy or DF.
+                                # Our predictors take DF and compute indicators internally? 
+                                # Wait, LightGBM/MLP generate_signals/train take RAW DF.
+                                # They compute features internally.
+                                # Permutation importance shuffles columns of INPUT X.
+                                # If input X is raw OHLCV, shuffling 'Close' breaks everything.
+                                # WE CANNOT USE STANDARD PERMUTATION IMPORTANCE ON RAW OHLCV IF FEATURES ARE GEN'D INSID E.
+                                # We must export features first.
+                                
+                                # For now, let's assume we can't easily do Permutation Importance on Raw Data pipelines 
+                                # without refactoring the whole pipeline to separate FeatureGen from Model.
+                                # Phase 3 implementation of FeatureSelector assumes X is Feature Matrix.
+                                pass
+                        
+                        # Correct approach:
+                        # LightGBM models usually have built-in feature importance.
+                        if job.model_type == 'lightgbm' and hasattr(model.model, 'feature_importance'):
+                            # Use native importance
+                            imp = model.model.feature_importance()
+                            names = model.model.feature_name()
+                            # Normalise
+                            total_gain = sum(imp)
+                            if total_gain > 0:
+                                feature_importance = {name: float(score/total_gain) for name, score in zip(names, imp)}
+                                # Sort
+                                feature_importance = dict(sorted(feature_importance.items(), key=lambda item: item[1], reverse=True)[:10])
+                            
+                        # MLP: No native importance. Leave empty for now or use Permutation if refactored.
+                        # Given constraints, we skip MLP feature importance for this iteration to avoid breaking pipeline.
+                        
+            except Exception as fi_e:
+                job.log(f"Warning: Feature Importance failed: {fi_e}")
+            
             job.progress = 100
             job.log("Training complete. Saving model...")
             
@@ -162,7 +234,8 @@ class AITrainer:
             
             job.result = {
                 "version": version,
-                "path": archive_path
+                "path": archive_path,
+                "feature_importance": feature_importance
             }
             job.status = "completed"
             job.end_time = datetime.now()

@@ -70,13 +70,17 @@ class PairsSelector:
                 is_coint, p_val, beta = self.engine.test_cointegration(s1, s2)
                 
                 if is_coint:
-                    # 計算 Spread 的均值回歸力度 (Half-life) - 可選優化
-                    # 這裡簡單存儲 p_value
+                    # 計算 Spread 的均值回歸力度 (Half-life)
+                    spread = self.engine.calculate_spread(s1, s2, beta)
+                    ou = self.engine.calculate_ou_params(spread)
+                    
                     valid_pairs.append({
                         'pair': (t1, t2),
                         'p_value': p_val,
                         'beta': beta,
-                        'correlation': corr_matrix.loc[t1, t2]
+                        'correlation': corr_matrix.loc[t1, t2],
+                        'half_life': ou.get('half_life', np.inf),
+                        'ou_sigma': ou.get('sigma', 0)
                     })
             except Exception as e:
                 logger.error(f"Error testing pair {t1}-{t2}: {e}")
