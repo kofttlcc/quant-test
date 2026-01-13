@@ -239,6 +239,10 @@ class Backtester:
         metrics['Final_Equity'] = strat_df['Equity'].iloc[-1]
         metrics['Total_Return'] = strat_df['Equity'].iloc[-1] / self.initial_capital - 1
         
+        # [MED-004] Expose Total Commission
+        total_comm = strat_df['Cost'].sum()
+        metrics['Total_Commission'] = total_comm
+        
         # Backward Compatibility Keys if Analyzers miss small logic details from before
         # (Though TradeAnalyzer covers Win_Rate, Profit_Factor etc)
         

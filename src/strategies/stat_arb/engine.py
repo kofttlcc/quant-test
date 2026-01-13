@@ -167,6 +167,11 @@ class StatArbEngine:
         signals['Spread'] = spread
         signals['ZScore'] = z_score
         
+        # [MED-003] Expose Half-Life for UI
+        signals['HalfLife'] = hl
+        signals['Theta'] = ou_params.get("theta", 0)
+        signals['Sigma'] = ou_params.get("sigma", 0)
+        
         # 初始化信號
         signals['Signal_Y'] = 0 # 主動資產
         signals['Signal_X'] = 0 # 對沖資產 (通常相反)

@@ -319,7 +319,20 @@ class LightGBMPredictor:
             # Since it's time series, simple TimeSeriesSplit is effectively what we need here, 
             # but PurgedCV class is better if we want to be strict.
             
-            train_size_full = len(X_train)
+            # [FIX] Construct Training Data first
+            train_df = strat_df.iloc[:train_end].copy()
+            # Label: Next day return > 0?
+            # Note: shift(-1) compares t+1 vs t. 
+            train_df['Target'] = (train_df['Close'].shift(-1) > train_df['Close']).astype(int)
+            train_df = train_df.dropna()
+            
+            X_train = train_df[feature_cols].values
+            y_train = train_df['Target'].values
+            
+            if len(X_train) < 30:
+                 logger.warning("Not enough training data for auto-training.")
+            else:
+                 train_size_full = len(X_train)
             valid_size = int(train_size_full * 0.1) # 10% validation
             train_idx = range(0, train_size_full - valid_size)
             valid_idx = range(train_size_full - valid_size, train_size_full)
