@@ -33,15 +33,15 @@
 > **目標**: 修復深層審計中發現的危急代碼漏洞。
 
 #### [MODIFY] [src/data_loader/data_loader.py](file:///Users/jerrylee/coding/src/data_loader/data_loader.py)
-- [ ] **[CRITICAL]** 移除 `ffill().bfill()` 暴力填充，接入 `data-gov-interp` 處理缺失值。
-- [ ] 增加並發鎖機制。
+- [x] **[CRITICAL]** 移除 `ffill().bfill()` 暴力填充，接入 `data-gov-interp` 處理缺失值。
+- [x] 增加並發鎖機制。
 
 #### [MODIFY] [src/models/arena/adversarial_arena.py](file:///Users/jerrylee/coding/src/models/arena/adversarial_arena.py)
-- [ ] **[CRITICAL]** 統一訓練/驗證集切分邏輯，消除數據洩露。
-- [ ] 嚴格對齊 Signal 與 Return 計算 ROI。
+- [x] **[CRITICAL]** 統一訓練/驗證集切分邏輯，消除數據洩露。
+- [x] 嚴格對齊 Signal 與 Return 計算 ROI。
 
 #### [MODIFY] [src/models/strategy_logic.py](file:///Users/jerrylee/coding/src/models/strategy_logic.py)
-- [ ] 移除 `Position` 的 `ffill`，正確處理非交易日狀態。
+- [x] 移除 `Position` 的 `ffill`，正確處理非交易日狀態。
 
 ### 第一階段：數據底層重構 (Data Foundation)
 > **負責人**: @dataeng
@@ -76,6 +76,36 @@
 - [x] 重構 `MLPTrendModel`，引入 `quant-ml-mlp` 的 Embedding 層架構。
 - [x] 在 `train` 方法中接入 `validation.py` 的 CV 流程。
 
+### 第四階段：UI 整合與產物暴露 (UI Integration)
+> **負責人**: @builder
+> **目標**: 將後端優化指標 (Feature Importance, Half-Life, Commission) 暴露給前端 API。
+
+#### [MODIFY] [src/models/arena/ai_optimizer.py](file:///Users/jerrylee/coding/src/models/arena/ai_optimizer.py)
+- [x] 集成 `FeatureSelector` 並保存特徵重要性。
+
+#### [MODIFY] [src/strategies/stat_arb/selector.py](file:///Users/jerrylee/coding/src/strategies/stat_arb/selector.py)
+- [x] 在配對篩選結果中暴露形變參數 (Half-Life)。
+
+#### [MODIFY] [src/backend/backtest_engine.py](file:///Users/jerrylee/coding/src/backend/backtest_engine.py)
+- [x] 新增總佣金指標。
+
+
+### 第五階段：系統交付與文檔完善 (System Delivery & Documentation)
+> **負責人**: @builder
+> **目標**: 更新系統文檔，清理驗證腳本，確保交付品質。
+
+#### [MODIFY] [README.md](file:///Users/jerrylee/coding/README.md)
+- [ ] 更新系統架構圖與功能列表 (含 Phase 1-4 變更)。
+
+#### [NEW] [USAGE.md](file:///Users/jerrylee/coding/USAGE.md)
+- [ ] 新增 AI 模型訓練指南。
+- [ ] 新增 StatArb 策略配置說明。
+- [ ] 新增回測解讀手冊 (Commission, Half-Life, Feature Imp)。
+
+#### [MOVE] [Verification Scripts]
+- [ ] 將 `src/verify_*.py` 移動至 `tests/verification/` 以保持 `src/` 潔淨。
+
 ## 驗證計畫
 1. **單元測試**: 為每個新模組編寫 `tests/`。
 2. **對比測試**: 比較新舊清洗邏輯對 Backtest 結果的影響（預期新邏輯的波動率會略高，Sharpe 略低，但更真實）。
+3. **交付驗證**: 確保所有文檔鏈接有效，測試腳本在測試目錄下正常運行。

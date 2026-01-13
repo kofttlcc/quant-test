@@ -5,7 +5,7 @@ import logging
 import pandas as pd
 import numpy as np
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("Phase3_Verifier")

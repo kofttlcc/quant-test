@@ -171,6 +171,50 @@
         },
         "metrics": {},
         "type": "lightgbm"
+      },
+      {
+        "version": "v1.4",
+        "timestamp": "2026-01-13 18:45:50",
+        "path": "data/model_registry/archive/lightgbm_v1.4.pkl",
+        "params": {
+          "n_estimators": 10,
+          "max_depth": 3,
+          "learning_rate": 0.1
+        },
+        "metrics": {}
+      },
+      {
+        "version": "v1.5",
+        "timestamp": "2026-01-13 18:46:13",
+        "path": "data/model_registry/archive/lightgbm_v1.5.pkl",
+        "params": {
+          "n_estimators": 10,
+          "max_depth": 3,
+          "learning_rate": 0.1
+        },
+        "metrics": {}
+      },
+      {
+        "version": "v1.6",
+        "timestamp": "2026-01-13 19:19:06",
+        "path": "data/model_registry/archive/lightgbm_v1.6.pkl",
+        "params": {
+          "n_estimators": 10,
+          "max_depth": 3,
+          "learning_rate": 0.1
+        },
+        "metrics": {}
+      },
+      {
+        "version": "v1.7",
+        "timestamp": "2026-01-13 19:19:42",
+        "path": "data/model_registry/archive/lightgbm_v1.7.pkl",
+        "params": {
+          "n_estimators": 10,
+          "max_depth": 3,
+          "learning_rate": 0.1
+        },
+        "metrics": {}
       }
     ]
   }

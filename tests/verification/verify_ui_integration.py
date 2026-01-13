@@ -14,7 +14,7 @@ import numpy as np
 import logging
 
 # Add root
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 from src.models.arena.ai_optimizer import get_ai_trainer
 from src.strategies.stat_arb.engine import StatArbEngine
