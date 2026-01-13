@@ -241,6 +241,11 @@ class Backtester:
         # Re-assign calculated metrics to ensure variable availability for existing return structure
         # (End of V2 logic)
 
+        # --- Phase 2: Advanced Risk Metrics (Trad-Fi) ---
+        risk_metrics = self._calc_risk_metrics(strat_df['Strat_Ret'])
+        metrics.update(risk_metrics)
+        # ------------------------------------------------
+
         logger.info(f"Backtest Complete. Sharpe: {metrics.get('Sharpe_Ratio', 0):.2f}. Trades: {len(trades)}")
         
         # Handle Dates
@@ -258,6 +263,52 @@ class Backtester:
             "daily_returns": strat_df['Strat_Ret'].tolist()  # 新增: 用於收益分佈
         }
     
+    def _calc_risk_metrics(self, returns: pd.Series, alpha=0.95, rf=0.0) -> dict:
+        """
+        計算 VaR, CVaR 與 Sortino Ratio (Skill: trad-fi-risk).
+        """
+        if len(returns) < 2:
+            return {}
+
+        try:
+             # Convert to numpy and drop NaNs
+            rets_np = returns.dropna().values
+            if len(rets_np) == 0: return {}
+            
+            # 1. VaR & CVaR (Historical Method)
+            # 取分佈的左尾 (損失是負收益)
+            var_level = 1 - alpha
+            # quantile method in numpy: 0.05 quantile is the 5% worst return
+            var_val = np.percentile(rets_np, var_level * 100)
+            
+            # CVaR: 所有小於等於 VaR 的收益率的平均值
+            tail_losses = rets_np[rets_np <= var_val]
+            cvar_val = tail_losses.mean() if len(tail_losses) > 0 else var_val
+            
+            # 2. Sortino Ratio
+            excess_ret = rets_np - rf
+            # 僅考慮負收益部分 (下行風險)
+            downside_ret = np.minimum(0, excess_ret)
+            downside_dev = np.sqrt(np.mean(downside_ret**2))
+            
+            if downside_dev == 0:
+                sortino = 0.0 # Avoid Inf
+            else:
+                # Annualize typically? If returns are daily:
+                # Sortino = (Mean_Daily_Exc_Ret * 252) / (Downside_Dev_Daily * sqrt(252))
+                # = Mean * 252 / (DD * 15.87) 
+                # = (Mean/DD) * sqrt(252)
+                sortino = (np.mean(excess_ret) / downside_dev) * np.sqrt(252)
+
+            return {
+                'VaR_95': float(var_val),
+                'CVaR_95': float(cvar_val),
+                'Sortino_Ratio': float(sortino)
+            }
+        except Exception as e:
+            logger.error(f"Error calculating risk metrics: {e}")
+            return {}
+
     @staticmethod
     def get_return_distribution(daily_returns: list, bins: int = 20) -> dict:
         """
