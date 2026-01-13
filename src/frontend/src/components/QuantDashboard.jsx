@@ -36,7 +36,12 @@ const MOCK_BACKTEST = {
         Sharpe_Ratio: 2.84,
         Max_Drawdown: -0.082,
         Total_Trades: 156,
-        Win_Rate: 0.584
+        Win_Rate: 0.584,
+        // Sprint 1: P0 風險指標
+        VaR_95: -0.0215,       // 95% 日 VaR
+        CVaR_95: -0.0342,      // 95% 日 CVaR
+        Sortino_Ratio: 3.12,   // Sortino Ratio
+        Total_Commission: 156.80 // 總佣金
     },
     equity_curve: Array.from({ length: 252 }, (_, i) => 1 + (i * 0.001) + (Math.sin(i / 20) * 0.02))
 };
@@ -366,7 +371,7 @@ export default function QuantDashboard({ onNavigate }) {
             }
         }
         return {
-            apiAddress: 'http://localhost:5001',
+            apiAddress: import.meta.env.VITE_API_URL || 'http://localhost:666',
             geminiUrl: '',
             geminiKey: '',
             geminiModel: 'gemini-3-pro-high',
@@ -764,16 +769,51 @@ export default function QuantDashboard({ onNavigate }) {
                     <div className="metric-value">{(backtestData?.metrics?.Profit_Factor || 1.65).toFixed(2)}</div>
                     <div className="metric-sub">↗ 穩健</div>
                 </div>
-                {/* 
+                {/* Sprint 1: Sortino Ratio 卡片 */}
                 <div className="metric-card">
                     <div className="metric-header">
-                        <span className="metric-title">最大回撤 (MAX DRAWDOWN)</span>
+                        <span className="metric-title">索提諾比率 (SORTINO)</span>
+                        <ShieldAlert size={16} />
+                    </div>
+                    <div className="metric-value">{(backtestData?.metrics?.Sortino_Ratio || 3.12).toFixed(2)}</div>
+                    <div className="metric-sub">↗ 僅懲罰下行風險</div>
+                </div>
+            </div>
+
+            {/* Sprint 1: VaR/CVaR 風險指標卡片 */}
+            <div className="metrics-row demo-style" style={{ marginTop: '12px' }}>
+                <div className="metric-card" style={{ borderLeft: '3px solid #ef4444' }}>
+                    <div className="metric-header">
+                        <span className="metric-title">風險價值 (VaR 95%)</span>
+                        <AlertTriangle size={16} color="#ef4444" />
+                    </div>
+                    <div className="metric-value negative">{((backtestData?.metrics?.VaR_95 || -0.0215) * 100).toFixed(2)}%</div>
+                    <div className="metric-sub">每日最大預期損失</div>
+                </div>
+                <div className="metric-card" style={{ borderLeft: '3px solid #f97316' }}>
+                    <div className="metric-header">
+                        <span className="metric-title">條件風險 (CVaR 95%)</span>
+                        <AlertTriangle size={16} color="#f97316" />
+                    </div>
+                    <div className="metric-value negative">{((backtestData?.metrics?.CVaR_95 || -0.0342) * 100).toFixed(2)}%</div>
+                    <div className="metric-sub">尾部風險平均損失</div>
+                </div>
+                <div className="metric-card">
+                    <div className="metric-header">
+                        <span className="metric-title">最大回撤 (MAX DD)</span>
                         <TrendingDown size={16} />
                     </div>
                     <div className="metric-value negative">{((backtestData?.metrics?.Max_Drawdown || -0.082) * 100).toFixed(1)}%</div>
                     <div className="metric-sub">↗ 恢復期: 14天</div>
                 </div>
-                */}
+                <div className="metric-card">
+                    <div className="metric-header">
+                        <span className="metric-title">總佣金成本</span>
+                        <DollarSign size={16} />
+                    </div>
+                    <div className="metric-value">${(backtestData?.metrics?.Total_Commission || 156.80).toFixed(2)}</div>
+                    <div className="metric-sub">交易摩擦成本</div>
+                </div>
             </div>
 
             {/* 主圖表區域 - 按 Demo 原版代碼還原 (8:4 比例) */}
@@ -1475,7 +1515,7 @@ export default function QuantDashboard({ onNavigate }) {
                             type="text"
                             value={config.apiAddress}
                             onChange={(e) => setConfig({ ...config, apiAddress: e.target.value })}
-                            placeholder="http://localhost:5001"
+                            placeholder={import.meta.env.VITE_API_URL || "http://localhost:666"}
                         />
                     </div>
                 </div>

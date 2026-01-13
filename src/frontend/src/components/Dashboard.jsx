@@ -70,7 +70,7 @@ export const Dashboard = () => {
         } catch (e) {
             setUpdateLogs(prev => [...prev,
             { time: new Date().toLocaleTimeString(), msg: `❌ 網絡錯誤: ${e.message}` },
-            { time: new Date().toLocaleTimeString(), msg: '💡 提示: 請確認後端服務已啟動 (port 5001)' }
+            { time: new Date().toLocaleTimeString(), msg: `💡 提示: 請確認後端服務已啟動` }
             ]);
             setUpdateProgress({ percentage: 0, status: 'failed' });
         }
@@ -90,8 +90,8 @@ export const Dashboard = () => {
         setUpdateProgress({ percentage: 0, status: 'running' });
 
         try {
+            // apiAddress removed, relying on proxy or relative path
             const res = await fetch('/api/v1/data/update', {
-                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ mode: 'sp500' })
             });
@@ -346,7 +346,6 @@ export const Dashboard = () => {
                             overflowY: 'auto',
                             fontSize: '0.75em',
                             background: '#111',
-                            padding: '8px',
                             borderRadius: '4px',
                             fontFamily: 'monospace'
                         }}>

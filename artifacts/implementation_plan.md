@@ -1,37 +1,34 @@
-# 實施計畫：系統交付與文檔完善 (Phase 5)
+# 實施計畫書: Phase 5 審計修復 (Audit Fixes)
 
-## 目標 (Goal)
-完成 Phase 1-4 的迭代後，系統核心能力已顯著提升。本階段旨在**更新文檔**以反映最新功能 (AI, StatArb, Data Gov)，並**清理項目結構**，確保代碼庫整潔可維護。
+## 🎯 目標 (Goal)
+修復由 Auditor 在 Phase 5 驗收測試中發現的兩個嚴重阻擋性問題 (Blockers)：
+1.  **CORS 跨域錯誤**: 導致前端無法存取後端 API (`/api/v1/macro/overview`)。
+2.  **前端端口硬編碼**: 導致模擬交易頁面嘗試連線錯誤的端口 (`5001` 而非 `666`)。
 
-## 需要用戶審查 (User Review Required)
-> [!NOTE]
-> 將把 `src/` 目錄下的臨時驗證腳本 (`verify_*.py`) 移動到 `tests/verification/`。這是一個文件結構變更。
+## ⚠️ 用戶審查 (User Review Required)
+> [!IMPORTANT]
+> 前端端口將被統一修改為連接 `localhost:666` (或透過環境變量)。請確保本地開發環境後端運行在 666 端口 (由 `start.sh` 控制)。
 
-## 擬議變更 (Proposed Changes)
+## 📝 變更計畫 (Proposed Changes)
 
-### Documentation
+### 1. 後端 API (Backend)
+#### [MODIFY] [src/api/main.py](file:///Users/jerrylee/coding/src/api/main.py)
+-   引入 `CORSMiddleware`。
+-   配置允許的源 (Allow Origins): `http://localhost:8888`, `http://127.0.0.1:8888`。
 
-#### [MODIFY] [README.md](file:///Users/jerrylee/coding/README.md)
-- **變更**:
-    - 更新 "Feature Highlights" (新增 Purged CV, Black-Scholes, Impact Cost, etc.)。
-    - 更新系統架構描述。
+### 2. 前端應用 (Frontend)
+#### [MODIFY] [src/frontend/src/pages/Simulation.jsx](file:///Users/jerrylee/coding/src/frontend/src/pages/Simulation.jsx) (及其他相關文件)
+-   搜索並替換所有硬編碼的 `http://localhost:5001`。
+-   替換為相對路徑 `/api` (如果由 Vite 代理) 或統一的後端 URL 常量。
+-   *策略*: 搜索全目錄 `src/frontend/src` 查找 `5001`。
 
-#### [NEW] [USAGE.md](file:///Users/jerrylee/coding/USAGE.md)
-- **內容**:
-    - **Backtesting**: 解讀 Total Commission, Half-Life 參數。
-    - **AI Training**: 如何訓練新模型並解讀 Feature Importance。
-    - **Troubleshooting**: 常見問題排查。
+## ✅ 驗證計畫 (Verification Plan)
 
-### Maintenance
-
-#### [MOVE] Verification Scripts
-- **源文件**: `src/verify_phase3.py`, `src/verify_ui_integration.py`
-- **目標**: `tests/verification/`
-- **目的**: 保持源代碼目錄專注於業務邏輯。
-
-## 驗證計畫 (Verification Plan)
+### 自動化測試
+1.  **CORS 測試**: 使用 `curl -I -H "Origin: http://localhost:8888" http://localhost:666/api/v1/macro/overview` 檢查 Headers。
 
 ### 手動驗證
-1. **文檔檢查**: 渲染 `README.md` 和 `USAGE.md`，確認格式正確且鏈接有效。
-2. **腳本運行**: 在新目錄下運行驗證腳本，確保路徑引用正確。
-    - `python -m tests.verification.verify_ui_integration`
+1.  運行 `./start.sh` 啟動完整堆棧。
+2.  打開 `http://localhost:8888`。
+3.  **儀表板檢查**: 確認 Macro Overview 數據加載成功（無 CORS 錯誤）。
+4.  **模擬交易檢查**: 進入模擬交易頁面，確認狀態請求指向正確端口且成功。

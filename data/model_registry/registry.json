@@ -102,7 +102,8 @@
           "n_estimators": 100,
           "max_depth": 5
         },
-        "metrics": {}
+        "metrics": {},
+        "type": "mlp"
       },
       {
         "version": "v1.8",
@@ -112,7 +113,8 @@
           "n_estimators": 200,
           "learning_rate": 0.001
         },
-        "metrics": {}
+        "metrics": {},
+        "type": "mlp"
       }
     ],
     "lightgbm": [
@@ -181,7 +183,8 @@
           "max_depth": 3,
           "learning_rate": 0.1
         },
-        "metrics": {}
+        "metrics": {},
+        "type": "lightgbm"
       },
       {
         "version": "v1.5",
@@ -192,7 +195,8 @@
           "max_depth": 3,
           "learning_rate": 0.1
         },
-        "metrics": {}
+        "metrics": {},
+        "type": "lightgbm"
       },
       {
         "version": "v1.6",
@@ -203,7 +207,8 @@
           "max_depth": 3,
           "learning_rate": 0.1
         },
-        "metrics": {}
+        "metrics": {},
+        "type": "lightgbm"
       },
       {
         "version": "v1.7",
@@ -213,6 +218,18 @@
           "n_estimators": 10,
           "max_depth": 3,
           "learning_rate": 0.1
+        },
+        "metrics": {},
+        "type": "lightgbm"
+      },
+      {
+        "version": "v1.8",
+        "timestamp": "2026-01-13 19:40:17",
+        "path": "data/model_registry/archive/lightgbm_v1.8.pkl",
+        "params": {
+          "learning_rate": 0.05,
+          "n_estimators": 100,
+          "max_depth": 5
         },
         "metrics": {}
       }
