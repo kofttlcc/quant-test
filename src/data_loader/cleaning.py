@@ -91,7 +91,12 @@ def fill_missing_values(df: pd.DataFrame, method='brownian', random_state=42) ->
                         if len(history) > 2:
                             daily_ret = history.pct_change().std()
                         else:
-                            daily_ret = 0.02 
+                            # [CRIT-003] Fallback to forward data if history insufficient
+                            lookforward = series.iloc[end_gap:min(end_gap+20, len(series))]
+                            if len(lookforward) > 2:
+                                daily_ret = lookforward.pct_change().std()
+                            else:
+                                daily_ret = 0.02 
                             
                         bridge_values = brownian_bridge(
                             start_val, end_val, gap_len, 

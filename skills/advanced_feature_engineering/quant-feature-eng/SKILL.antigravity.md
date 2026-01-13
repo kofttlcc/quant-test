@@ -85,7 +85,7 @@ def frac_diff_ffd(series, d, thres=1e-5):
         thres (float): 權重截斷閾值
     """
     # 1. 處理缺失值
-    series = series.fillna(method='ffill').dropna()
+    series = series.ffill().dropna()
     x = series.values.reshape(-1, 1)
     
     # 2. 獲取權重

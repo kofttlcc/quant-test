@@ -1,0 +1,47 @@
+WARNING:src.models.arena.tree_predictor:LightGBM not available, using fallback
+/Users/jerrylee/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:src.data_loader.cache_manager:CacheManager initialized at data/processed (Parquet)
+INFO:src.models.arena.feature_selector:Computing Permutation Importance (repeats=2)...
+--- Testing FeatureSelector ---
+INFO:src.models.arena.feature_selector:Feature Importance Computation Completed.
+INFO:src.models.arena.feature_selector:Selected Top-3 features: ['feat_1', 'feat_3', 'feat_4']
+INFO:src.models.arena.ai_optimizer:[Job 3b0fc832b6e549259f9c4067a0f99cbb] Starting training for lightgbm on AAPL
+INFO:src.models.arena.ai_optimizer:[Job 3b0fc832b6e549259f9c4067a0f99cbb] Fetching data...
+ERROR:src.data_loader.cache_manager:Parquet Load Error (AAPL): Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.
+A suitable version of pyarrow or fastparquet is required for parquet support.
+Trying to import the above resulted in these errors:
+ - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.
+ - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.
+INFO:src.data_loader.downloader:Fetching data for AAPL from 2023-01-01...
+WARNING:src.data_loader.downloader:Attempt 1/3: Download failed for AAPL: 'NoneType' object has no attribute 'download'
+WARNING:src.data_loader.downloader:Attempt 2/3: Download failed for AAPL: 'NoneType' object has no attribute 'download'
+WARNING:src.data_loader.downloader:Attempt 3/3: Download failed for AAPL: 'NoneType' object has no attribute 'download'
+ERROR:src.data_loader.downloader:Failed to fetch data for AAPL after 3 attempts.
+INFO:src.models.arena.ai_optimizer:[Job 3b0fc832b6e549259f9c4067a0f99cbb] Training failed: No data fetched
+Top features: ['feat_1', 'feat_3', 'feat_4']
+[PASS] FeatureSelector computed importance.
+
+--- Testing AITrainer Callback ---
+Job started: 3b0fc832b6e549259f9c4067a0f99cbb
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: running, Progress: 0%
+Status: failed, Progress: 0%
+Final Status: failed
+Logs: ['[17:45:03] Starting training for lightgbm on AAPL', '[17:45:03] Fetching data...', '[17:45:15] Training failed: No data fetched']
+[FAIL] Job failed: No data fetched
+ERROR:src.models.arena.ai_optimizer:Job 3b0fc832b6e549259f9c4067a0f99cbb failed: Traceback (most recent call last):
+  File "/Users/jerrylee/coding/src/models/arena/ai_optimizer.py", line 83, in _run_training
+    raise ValueError("No data fetched")
+ValueError: No data fetched
+

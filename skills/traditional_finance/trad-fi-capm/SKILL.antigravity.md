@@ -76,7 +76,7 @@ def calculate_capm(asset_ret, market_ret, rf=0.0):
     
     # 2. 計算超額收益
     if isinstance(rf, pd.Series):
-        rf = rf.reindex(df.index).fillna(method='ffill')
+        rf = rf.reindex(df.index).ffill()
     
     y = df['asset'] - rf
     x = df['market'] - rf

@@ -6,10 +6,15 @@ except ImportError:
     from cache_manager import CacheManager
     from validator import DataValidator
 
-import yfinance as yf
 import pandas as pd
 import logging
 import time
+
+try:
+    import yfinance as yf
+except (ImportError, TypeError):
+    # Fallback for py3.9 type union error or missing lib
+    yf = None
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -77,11 +82,16 @@ def fetch_data(ticker: str, start_date: str, interval: str = "1d", force_refresh
         
     return df_clean
 
-def fetch_financials(ticker: str) -> bool:
+def fetch_financials(ticker: str) -> pd.DataFrame:
     """
     Fetch and cache financials for a ticker.
-    Returns True if successful.
+    Returns:
+        pd.DataFrame (OHLCV)
     """
+    if yf is None:
+        logger.warning("yfinance not available. returning empty DF.")
+        return pd.DataFrame()
+
     logger.info(f"Fetching Financials for {ticker}...")
     try:
         t = yf.Ticker(ticker)

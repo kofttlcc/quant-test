@@ -65,7 +65,25 @@ class MomentumStrategy:
         strat_df['Position'] = np.nan
         strat_df.loc[strat_df['Signal'] == 1, 'Position'] = 1.0
         strat_df.loc[strat_df['Signal'] == -1, 'Position'] = 0.0
+        
+        # Forward fill position to hold trades
         strat_df['Position'] = strat_df['Position'].ffill().fillna(0.0)
+        
+        # [CRIT-002] Fix: Detect non-trading gaps (> 5 days) and reset position
+        # Calculate time delta between rows
+        if isinstance(strat_df.index, pd.DatetimeIndex):
+            time_diff = strat_df.index.to_series().diff()
+            # If gap > 5 days (e.g. market closed for week++, or missing data), force exit
+            gap_mask = time_diff > pd.Timedelta(days=5)
+            if gap_mask.any():
+                strat_df.loc[gap_mask, 'Position'] = 0.0
+                # Re-ffill zeros if needed? No, we just cut the hold.
+                # Actually if we set to 0.0, we are Flat.
+                # But we need to ensure we don't hold through the gap.
+                # If gap is at index t, it means t is far from t-1.
+                # So at t, we should not inherit t-1's position unless reaffirmed.
+                # Setting Position at t to 0.0 achieves this.
+
         
         # 3. Phase 5: Regime Filter (GMM)
         # Phase 6 Update: Use Expanding Window to prevent Look-ahead Bias

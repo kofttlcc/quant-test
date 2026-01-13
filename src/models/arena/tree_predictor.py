@@ -74,6 +74,7 @@ class LightGBMPredictor:
         self.feature_names: List[str] = []
         self.is_fitted = False
         self.model_path = os.environ.get('TREE_MODEL_PATH', 'temp/ml_models/lgbm_model.pkl')
+        self.on_epoch_end = None # Callable accepting (epoch, metrics)
         
     def fit(self, X: np.ndarray, y: np.ndarray, feature_names: List[str] = None):
         """
@@ -120,11 +121,20 @@ class LightGBMPredictor:
         # 創建數據集
         train_data = lgb.Dataset(X, label=y, feature_name=self.feature_names)
         
+        # Callbacks
+        callbacks = []
+        if self.on_epoch_end:
+            def _callback(env):
+                # LightGBM callback env has 'iteration', 'evaluation_result_list'
+                self.on_epoch_end(env.iteration, {})
+            callbacks.append(_callback)
+
         # 訓練
         self.model = lgb.train(
             params,
             train_data,
             num_boost_round=self.config.n_estimators,
+            callbacks=callbacks
         )
         
     def _fit_xgboost(self, X: np.ndarray, y: np.ndarray, is_classification: bool):

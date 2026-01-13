@@ -43,6 +43,7 @@ class MLPTrendModel:
         self.scaler = StandardScaler()
         self.is_fitted = False
         self.best_model = None
+        self.on_fold_end = None # Callable accepting (fold, score)
         
     def fit_cv(self, X, y):
         """
@@ -55,6 +56,7 @@ class MLPTrendModel:
         cv = CombinatorialPurgedKFold(n_splits=5, n_test_splits=1, purge_window=5)
         
         best_score = -np.inf
+        total_folds = 5
         
         for i, (train_idx, val_idx) in enumerate(cv.split(X_scaled)):
             X_train = X_scaled[train_idx]
@@ -68,6 +70,9 @@ class MLPTrendModel:
             
             score = fold_model.score(X_val, y_val)
             logger.info(f"Fold {i} Acc: {score:.4f}")
+            
+            if self.on_fold_end:
+                self.on_fold_end(i, total_folds, score)
             
             if score > best_score:
                 best_score = score
@@ -93,6 +98,7 @@ class MLPPredictor:
         self.sequence_length = sequence_length
         self.model = MLPTrendModel(sequence_length)
         self.model_path = model_path or os.environ.get('ML_MODEL_PATH', 'temp/ml_models/mlp_sklearn.pkl')
+        self.on_fold_end = None
         
     def create_features(self, data: np.ndarray):
         xs, ys = [], []
@@ -114,6 +120,7 @@ class MLPPredictor:
         if len(X) == 0: return
         
         logger.info(f"Training Sklearn MLP with Purged CV on {len(X)} samples...")
+        self.model.on_fold_end = self.on_fold_end
         self.model.fit_cv(X, y)
         
         if save:

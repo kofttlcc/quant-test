@@ -16,7 +16,7 @@ description: 生成適用於金融機器學習的高質量特徵。包含分數�
 3. Python 實作範本
 python import numpy as npimport pandas as pdfrom statsmodels.tsa.stattools import adfuller
 def get_weights_ffd(d, thres, size):"""生成分數階差分的權重係數 (Fixed Window)"""w = [1.]for k in range(1, size):w_ = -w[-1] / k * (d - k + 1)if abs(w_) < thres: breakw.append(w_)return np.array(w[::-1]).reshape(-1, 1)
-def frac_diff_ffd(series, d, thres=1e-5):"""執行分數階差分""" # 1. 處理缺失值series = series.fillna(method='ffill').dropna()x = series.values.reshape(-1, 1)
+def frac_diff_ffd(series, d, thres=1e-5):"""執行分數階差分""" # 1. 處理缺失值series = series.ffill().dropna()x = series.values.reshape(-1, 1)
 
 # 2. 獲取權重
 w = get_weights_ffd(d, thres, len(x))
