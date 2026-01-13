@@ -70,6 +70,12 @@ Usage notes:
 </skill>
 
 <skill>
+<name>youtube-downloader</name>
+<description>Download YouTube videos with customizable quality and format options. Use this skill when the user asks to download, save, or grab YouTube videos. Supports various quality settings (best, 1080p, 720p, 480p, 360p), multiple formats (mp4, webm, mkv), and audio-only downloads as MP3.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>verification-before-completion</name>
 <description>Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always</description>
 <location>project</location>
@@ -106,6 +112,18 @@ Usage notes:
 </skill>
 
 <skill>
+<name>template-skill</name>
+<description>Replace with description of the skill and when Claude should use it.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>tailored-resume-generator</name>
+<description>Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>systematic-debugging</name>
 <description>Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes</description>
 <location>project</location>
@@ -119,7 +137,19 @@ Usage notes:
 
 <skill>
 <name>slack-gif-creator</name>
-<description>Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack."</description>
+<description>Toolkit for creating animated GIFs optimized for Slack, with validators for size constraints and composable animation primitives. This skill applies when users request animated GIFs or emoji animations for Slack from descriptions like "make me a GIF for Slack of X doing Y".</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>skill-share</name>
+<description>A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>skill-from-masters</name>
+<description>Help users create high-quality skills by discovering and incorporating proven methodologies from domain experts. Use this skill BEFORE skill-creator when users want to create a new skill - it enhances skill-creator by first identifying expert frameworks and best practices to incorporate. Triggers on requests like "help me create a skill for X" or "I want to make a skill that does Y". This skill guides methodology selection, then hands off to skill-creator for the actual skill generation.</description>
 <location>project</location>
 </skill>
 
@@ -142,6 +172,12 @@ Usage notes:
 </skill>
 
 <skill>
+<name>raffle-winner-picker</name>
+<description>Picks random winners from lists, spreadsheets, or Google Sheets for giveaways, raffles, and contests. Ensures fair, unbiased selection with transparency.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>pptx</name>
 <description>Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks</description>
 <location>project</location>
@@ -154,20 +190,8 @@ Usage notes:
 </skill>
 
 <skill>
-<name>nano-image-generator</name>
-<description>Generate images using Nano Banana Pro (Gemini 3 Pro Preview). Use when creating app icons, logos, UI graphics, marketing banners, social media images, illustrations, diagrams, or any visual assets. Supports reference images for style transfer and character consistency. Triggers include phrases like 'generate an image', 'create a graphic', 'make an icon', 'design a logo', 'create a banner', 'same style as', 'keep the style', or any request needing visual content.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>nano-image-generator</name>
-<description>Generate images using Nano Banana Pro (Gemini 3 Pro Preview). Use when creating app icons, logos, UI graphics, marketing banners, social media images, illustrations, diagrams, or any visual assets. Supports reference images for style transfer and character consistency. Triggers include phrases like 'generate an image', 'create a graphic', 'make an icon', 'design a logo', 'create a banner', 'same style as', 'keep the style', or any request needing visual content.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>nano-image-generator</name>
-<description>Generate images using Nano Banana Pro (Gemini 3 Pro Preview). Use when creating app icons, logos, UI graphics, marketing banners, social media images, illustrations, diagrams, or any visual assets. Supports reference images for style transfer and character consistency. Triggers include phrases like 'generate an image', 'create a graphic', 'make an icon', 'design a logo', 'create a banner', 'same style as', 'keep the style', or any request needing visual content.</description>
+<name>meeting-insights-analyzer</name>
+<description>Analyzes meeting transcripts and recordings to uncover behavioral patterns, communication insights, and actionable feedback. Identifies when you avoid conflict, use filler words, dominate conversations, or miss opportunities to listen. Perfect for professionals seeking to improve their communication and leadership skills.</description>
 <location>project</location>
 </skill>
 
@@ -178,8 +202,32 @@ Usage notes:
 </skill>
 
 <skill>
+<name>lead-research-assistant</name>
+<description>Identifies high-quality leads for your product or service by analyzing your business, searching for target companies, and providing actionable contact strategies. Perfect for sales, business development, and marketing professionals.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>langsmith-fetch</name>
+<description>Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or examining agent performance. Automatically fetches recent traces and analyzes execution patterns. Requires langsmith-fetch CLI installed.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>invoice-organizer</name>
+<description>Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting them into logical folders. Turns hours of manual bookkeeping into minutes of automated organization.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>internal-comms</name>
 <description>A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>image-enhancer</name>
+<description>Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.</description>
 <location>project</location>
 </skill>
 
@@ -196,8 +244,20 @@ Usage notes:
 </skill>
 
 <skill>
+<name>file-organizer</name>
+<description>Intelligently organizes your files and folders across your computer by understanding context, finding duplicates, suggesting better structures, and automating cleanup tasks. Reduces cognitive load and keeps your digital workspace tidy without manual effort.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>executing-plans</name>
 <description>Use when you have a written implementation plan to execute in a separate session with review checkpoints</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>domain-name-brainstormer</name>
+<description>Generates creative domain name ideas for your project and checks availability across multiple TLDs (.com, .io, .dev, .ai, etc.). Saves hours of brainstorming and manual checking.</description>
 <location>project</location>
 </skill>
 
@@ -220,6 +280,42 @@ Usage notes:
 </skill>
 
 <skill>
+<name>developer-growth-analysis</name>
+<description>Analyzes your recent Claude Code chat history to identify coding patterns, development gaps, and areas for improvement, curates relevant learning resources from HackerNews, and automatically sends a personalized growth report to your Slack DMs.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>content-research-writer</name>
+<description>Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>connect-apps</name>
+<description>Connect Claude to external apps like Gmail, Slack, GitHub. Use this skill when the user wants to send emails, create issues, post messages, or take actions in external services.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>connect</name>
+<description>Connect Claude to any app. Send emails, create issues, post messages, update databases - take real actions across Gmail, Slack, GitHub, Notion, and 1000+ services.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>competitive-ads-extractor</name>
+<description>Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>changelog-generator</name>
+<description>Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns hours of manual changelog writing into minutes of automated generation.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>canvas-design</name>
 <description>Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.</description>
 <location>project</location>
@@ -238,56 +334,14 @@ Usage notes:
 </skill>
 
 <skill>
+<name>artifacts-builder</name>
+<description>Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>algorithmic-art</name>
 <description>Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-evolution</name>
-<description>Self-improving skill system for Makepad development. Features self-evolution (accumulate knowledge), self-correction (fix errors automatically), self-validation (verify accuracy), usage feedback (track pattern health), version adaptation (multi-branch support), and personalization (adapt to project style).</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-reference</name>
-<description>Reference materials for Makepad development including troubleshooting, code quality guidelines, and responsive layout patterns.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-deployment</name>
-<description>Package Makepad applications for distribution on desktop (Linux, Windows, macOS), mobile (Android, iOS), and web (Wasm) platforms.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-patterns</name>
-<description>Reusable patterns for Makepad widget development, data management, and async architecture.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-graphics</name>
-<description>Makepad shaders, SDF drawing, animations, and visual effects.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-components</name>
-<description>Quick reference for all Makepad built-in widgets with usage examples. Extracted from ui_zoo examples. Use when you need to know available widgets, their variants, and configuration options.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-core</name>
-<description>Entry point for Makepad core concepts including layout, widgets, events, and styling. Start here to learn UI fundamentals.</description>
-<location>project</location>
-</skill>
-
-<skill>
-<name>makepad-getting-started</name>
-<description>Entry point for Makepad development with Claude. Start here to learn about available skills and how to begin building Makepad applications.</description>
 <location>project</location>
 </skill>
 </available_skills>

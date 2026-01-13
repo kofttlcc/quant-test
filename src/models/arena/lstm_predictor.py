@@ -62,9 +62,14 @@ class MLPPredictor:
         xs, ys = [], []
         for i in range(len(data) - self.sequence_length - 1):
             x = data[i : i+self.sequence_length]  # Shape (seq_len,)
+            
+            # MAJOR-007 FIX: Normalize input window to handle price drift (Scale Invariant)
+            # Convert raw prices to % change relative to window start
+            if len(x) > 0 and x[0] != 0:
+                x = (x / x[0]) - 1.0
+            
             # CRITICAL-002 FIX: 目標是當前時點的收益方向（已實現）
             # 使用 data[i+seq_len] vs data[i+seq_len-1]，這是「當日」相對「昨日」
-            # 模型基於 [t-N, t-1] 的序列預測 t 的方向
             target_val = data[i+self.sequence_length] - data[i+self.sequence_length-1]
             y = 1 if target_val > 0 else 0
             xs.append(x)
@@ -100,7 +105,18 @@ class MLPPredictor:
         """
         # Ensure sequence is (1, seq_len)
         if sequence.ndim == 1:
+            # Normalize (Same as create_features)
+            if len(sequence) > 0 and sequence[0] != 0:
+                sequence = (sequence / sequence[0]) - 1.0
             sequence = sequence.reshape(1, -1)
+        else:
+             # Batch normalization for 2D
+             # Assuming shape (batch, seq_len)
+             # Avoid in-place modification of original array if shared
+             sequence = sequence.copy()
+             for i in range(len(sequence)):
+                 if sequence[i, 0] != 0:
+                     sequence[i] = (sequence[i] / sequence[i, 0]) - 1.0
             
         prob = self.model.predict_proba(sequence)[0]
         return prob
@@ -181,10 +197,10 @@ class MLPPredictor:
                 seq = prices[i-self.sequence_length:i]
                 prob = self.predict(seq)
                 
-                # 概率 > 0.55 做多，< 0.45 做空/空倉
-                if prob > 0.55:
+                # 概率 > 0.52 做多，< 0.48 做空/空倉
+                if prob > 0.52:
                     strat_df.iloc[i, strat_df.columns.get_loc('Signal')] = 1
-                elif prob < 0.45:
+                elif prob < 0.48:
                     strat_df.iloc[i, strat_df.columns.get_loc('Signal')] = -1
             
             # Position: 持倉 (使用信號前向填充)

@@ -332,7 +332,7 @@ class ValuationEngine:
                  confidence = "Medium"
             else:
                  confidence = "Low"
-                 data_quality = "Low" # Divergence implies data/model mismatch
+                 # data_quality remains High (if data was good), only confidence is Low due to divergence
         else:
             divergence_pct = 0
             confidence = "Single Model"

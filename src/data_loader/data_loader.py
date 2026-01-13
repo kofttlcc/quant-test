@@ -14,6 +14,12 @@ import pandas as pd
 import time
 from typing import List, Optional, Union, Dict
 import logging
+import threading
+try:
+    from .cleaning import fill_missing_values
+except ImportError:
+    # Fallback/Test mode
+    from cleaning import fill_missing_values
 
 # 配置日誌
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -38,6 +44,7 @@ class DataLoader:
         self.retry_delay = retry_delay
         self.cache = {}
         self._cache_timestamps = {}  # MEM-001 FIX: 記錄緩存時間
+        self.lock = threading.Lock() # CRITICAL FIX: Add Lock
         
     def _evict_expired_cache(self):
         """MEM-001 FIX: 清理過期和超量緩存"""
@@ -61,9 +68,10 @@ class DataLoader:
     
     def clear_cache(self):
         """MEM-001 FIX: 手動清理全部緩存"""
-        self.cache.clear()
-        self._cache_timestamps.clear()
-        logger.info("DataLoader cache cleared")
+        with self.lock:
+            self.cache.clear()
+            self._cache_timestamps.clear()
+            logger.info("DataLoader cache cleared")
 
     def fetch_data(
         self, 
@@ -146,9 +154,10 @@ class DataLoader:
                     
                     # MEM-001 FIX: 記錄時間戳並檢查緩存限制
                     import time
-                    self._evict_expired_cache()
-                    self.cache[t] = df
-                    self._cache_timestamps[t] = time.time()
+                    with self.lock:
+                        self._evict_expired_cache()
+                        self.cache[t] = df
+                        self._cache_timestamps[t] = time.time()
                     results[t] = df
                 
                 logger.info("數據下載完成")
@@ -180,8 +189,9 @@ class DataLoader:
         # 強制轉換為標準格式
         # 如果需要，這裡可以處理列名映射 (比如有些源是大寫全稱)
         
-        # 處理空值: 先 ffill 再 bfill
-        df = df.ffill().bfill()
+        # 處理空值: 使用 Brownian Bridge (CRITICAL FIX)
+        # df = df.ffill().bfill()
+        df = fill_missing_values(df, method='brownian')
         
         return df
 

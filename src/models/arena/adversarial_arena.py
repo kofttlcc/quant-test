@@ -84,10 +84,23 @@ class AdversarialArena:
         df_tree = self.model_tree.generate_signals(df.copy())
         sig_tree = df_tree['Signal'].values if 'Signal' in df_tree else np.zeros(len(df))
         
-        # 2. Validation (Last N periods)
-        # Define Validation Slice
-        val_start_idx = len(df) - validation_window
+        # 2. Validation (Dynamic alignment to Model 80/20 Split)
+        # CRITICAL-001 FIX: Align Validation with Model Training Split to avoid Leakage/Dilution
+        # Models use 80% Train, 20% Test internally.
+        
+        split_ratio = 0.8
+        train_end_idx = int(len(df) * split_ratio)
+        
+        # Use the remaining 20% as validation, ignoring fixed 'validation_window' if it conflicts
+        # or implies overlapping with training data.
+        val_start_idx = train_end_idx
+        
+        if val_start_idx >= len(df):
+             logger.warning("Data too short for validation split. using last 10%.")
+             val_start_idx = int(len(df) * 0.9)
+             
         val_idx = df.index[val_start_idx:]
+        logger.info(f"Arena Validation Split: {len(df) - val_start_idx} bars (Indices {val_start_idx} to {len(df)})")
         
         y_true_returns = df['Close'].pct_change().fillna(0).values
         
