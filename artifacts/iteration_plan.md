@@ -47,9 +47,9 @@
 > **目標**: 確保所有進入模型的數據均經過魯棒清洗與正確插值。
 
 #### [MODIFY] [src/data_loader/cleaning.py](file:///Users/jerrylee/coding/src/data_loader/cleaning.py)
-- [ ] 移除 `handle_outliers` 中的線性插值邏輯。
-- [ ] 實作 `data-gov-outliers` (MAD) 替換固定閾值過濾。
-- [ ] 實作 `data-gov-interp` (Brownian Bridge) 用於填補 `NaN`。
+- [x] 移除 `handle_outliers` 中的線性插值邏輯。
+- [x] 實作 `data-gov-outliers` (MAD) 替換固定閾值過濾。
+- [x] 實作 `data-gov-interp` (Brownian Bridge) 用於填補 `NaN`。
 
 ### 第二階段：核心金融引擎 (Financial Core)
 > **負責人**: @quant
