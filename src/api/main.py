@@ -81,8 +81,19 @@ except Exception as e:
     logging.warning(f"加載持久化配置失敗: {e}")
 
 # CRITICAL-003 FIX: CORS 配置從環境變量讀取
-ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', 'http://localhost:3000,http://localhost:5173').split(',')
-ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS if origin.strip()]
+HOST = os.environ.get('HOST', '127.0.0.1')
+BACKEND_PORT = int(os.environ.get('BACKEND_PORT', 666))
+FRONTEND_PORT = os.environ.get('FRONTEND_PORT', '8888')
+
+default_origins = [
+    f"http://localhost:{FRONTEND_PORT}",
+    f"http://127.0.0.1:{FRONTEND_PORT}",
+    "http://localhost:3000",
+    "http://localhost:5173"
+]
+
+ALLOWED_ORIGINS_ENV = os.environ.get('ALLOWED_ORIGINS', '').split(',')
+ALLOWED_ORIGINS = list(set([o.strip() for o in ALLOWED_ORIGINS_ENV if o.strip()] + default_origins))
 
 # CRITICAL-003 FIX: 加強 API Key 認證
 API_KEY = os.environ.get('QUANT_API_KEY', '')  # 移除默認值

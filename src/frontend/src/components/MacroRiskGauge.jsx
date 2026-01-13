@@ -11,8 +11,8 @@ const MacroRiskGauge = () => {
         const fetchData = async () => {
             try {
                 // In production, use environment variable for API URL
-                // Here we assume proxy or same host
-                const response = await fetch('http://127.0.0.1:8045/api/v1/macro/overview', {
+                const API_BASE = import.meta.env.VITE_API_URL || '/api/v1';
+                const response = await fetch(`${API_BASE}/macro/overview`, {
                     headers: {
                         'X-API-Key': 'gemini-quant-v5-dev' // Dev key, or empty in dev
                     }
@@ -61,7 +61,10 @@ const MacroRiskGauge = () => {
         </div>
     );
 
-    const { risk_score, risk_mode, timestamp } = data;
+    // Fix: Derive risk metrics from fear_greed if not directly present
+    const risk_score = data.risk_score ?? data.fear_greed?.value ?? 50;
+    const risk_mode = data.risk_mode ?? data.fear_greed?.label ?? 'Neutral';
+    const { timestamp } = data;
 
     // Color logic
     let color = '#3b82f6'; // Blue Neutral
@@ -136,8 +139,8 @@ const MacroRiskGauge = () => {
 
                 <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>市場情緒</div>
-                    <div style={{ fontWeight: 'bold' }}>{data.sentiment.label}</div>
-                    <div style={{ fontSize: '0.7rem' }}>Score: {data.sentiment.score}</div>
+                    <div style={{ fontWeight: 'bold' }}>{data.fear_greed?.label || 'N/A'}</div>
+                    <div style={{ fontSize: '0.7rem' }}>Score: {data.fear_greed?.value || 'N/A'}</div>
                 </div>
             </div>
 

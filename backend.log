@@ -18,7 +18,7 @@ INFO:root:持久化配置已加載
 WARNING:root:WARNING: Running without API Key authentication (development mode only)
 --- SELF-TEST START: api_server.py ---
 [TEST] Health Check: 200 - {'service': 'gemini-quant-backend', 'status': 'ok'}
-[TEST] Market Status: 200 - {'bitcoin_price': 0.0, 'last_updated': '2026-01-12 23:40:40', 'market_status': 'OPEN (Real-time)', 'sp500_level': 0.0}
+[TEST] Market Status: 200 - {'bitcoin_price': 0.0, 'last_updated': '2026-01-13 19:24:42', 'market_status': 'OPEN (Real-time)', 'sp500_level': 0.0}
 [TEST] SUCCESS: API endpoints reachable.
 --- SELF-TEST END ---
 >>> Starting API Server on Port 666...
@@ -29,136 +29,20 @@ INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a
  * Running on http://127.0.0.1:666
  * Running on http://198.18.0.1:666
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:40:43] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:40:53] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:03] "[33mGET /api/v1/health HTTP/1.1[0m" 404 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:03] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8974)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8975)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8976)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8977)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8978)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8979)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:03] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:13] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:23] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:33] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8980)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8981)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8982)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8983)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8984)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8985)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:33] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:39] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:43] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:41:53] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:03] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8986)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8987)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8988)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8989)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8990)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8991)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:03] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:13] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:23] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:24:49] "GET /health HTTP/1.1" 200 -
 INFO:__main__:Running backtest for AAPL with strategy=momentum, version=None
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:31] "POST /api/v1/model/predict HTTP/1.1" 200 -
+INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
 INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
 INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
 INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:31] "POST /api/v1/model/predict HTTP/1.1" 200 -
+INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.7.pkl
+INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.7.pkl
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:01] "POST /api/v1/model/predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:01] "POST /api/v1/model/predict HTTP/1.1" 200 -
 WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8992)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:31] "GET /api/v1/backtest/run?ticker=AAPL&strategy=momentum HTTP/1.1" 200 -
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9701)
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:01] "GET /api/v1/backtest/run?ticker=AAPL&strategy=momentum HTTP/1.1" 200 -
 INFO:__main__:Running backtest for AAPL with strategy=momentum, version=None
 INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
 INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
@@ -166,8 +50,8 @@ INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
 INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
 WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8993)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:31] "GET /api/v1/backtest/run?ticker=AAPL&strategy=momentum HTTP/1.1" 200 -
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9702)
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:01] "GET /api/v1/backtest/run?ticker=AAPL&strategy=momentum HTTP/1.1" 200 -
 WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
 INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
@@ -178,95 +62,18 @@ WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
 WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:__main__:Running backtest for AAPL with strategy=momentum, version=None
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:32] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:32] "POST /api/v1/model/predict HTTP/1.1" 200 -
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8994)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:32] "GET /api/v1/backtest/run?ticker=AAPL&strategy=momentum HTTP/1.1" 200 -
-INFO:__main__:Running backtest for AAPL with strategy=momentum, version=None
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8995)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8996)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8997)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8998)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 8999)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9000)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:32] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9001)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:33] "GET /api/v1/backtest/run?ticker=AAPL&strategy=momentum HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9002)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9003)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9004)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9005)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9006)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9007)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:33] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9008)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9009)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9010)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9011)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9012)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9013)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:33] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
+INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.00. Trades: 0
+INFO:src.models.arena.tree_predictor:MED-001: Purged K-Fold used for Train/Valid split.
+INFO:src.models.arena.tree_predictor:TreePredictor fitted on 320 samples, 6 features
+INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained. Train size: 320, Valid skipped in fit call.
+INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.06. Trades: 17
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9703)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9704)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9705)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9706)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9707)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9708)
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:02] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
 INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
 INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
 INFO:src.data_loader.cache_manager:CacheManager initialized at data/processed (Parquet)
@@ -280,301 +87,25 @@ WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
 WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
 INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9014)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9015)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9016)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9017)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9018)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9019)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:34] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.models.wacc_calculator:[AAPL] Dynamic WACC: 9.51% (Beta=1.09, Rf=4.18%, We=0.97, Wd=0.03)
+INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.00. Trades: 0
+INFO:src.models.arena.tree_predictor:MED-001: Purged K-Fold used for Train/Valid split.
+INFO:src.models.arena.tree_predictor:TreePredictor fitted on 320 samples, 6 features
+INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained. Train size: 320, Valid skipped in fit call.
+INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.06. Trades: 17
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9709)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9710)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9711)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9712)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9713)
+INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9714)
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:02] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
+INFO:src.models.wacc_calculator:[AAPL] Dynamic WACC: 9.52% (Beta=1.09, Rf=4.19%, We=0.97, Wd=0.03)
 INFO:src.models.valuation:[AAPL] Capping Earnings Growth (91.2%) to 1.5x Revenue Growth (7.9%)
 INFO:src.models.valuation:[AAPL] DCF params: WACC=9.5%, Growth=11.8%, Terminal=3.0%
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:36] "GET /api/v1/stock/valuation?ticker=AAPL HTTP/1.1" 200 -
-WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:37] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.models.wacc_calculator:[AAPL] Dynamic WACC: 9.51% (Beta=1.09, Rf=4.18%, We=0.97, Wd=0.03)
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:03] "GET /api/v1/stock/valuation?ticker=AAPL HTTP/1.1" 200 -
+INFO:src.models.wacc_calculator:[AAPL] Dynamic WACC: 9.52% (Beta=1.09, Rf=4.19%, We=0.97, Wd=0.03)
 INFO:src.models.valuation:[AAPL] Capping Earnings Growth (91.2%) to 1.5x Revenue Growth (7.9%)
 INFO:src.models.valuation:[AAPL] DCF params: WACC=9.5%, Growth=11.8%, Terminal=3.0%
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:39] "GET /api/v1/stock/valuation?ticker=AAPL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:04] "GET /api/v1/stock/valuation?ticker=AAPL HTTP/1.1" 200 -
 WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:40] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:42] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:42:52] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:02] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9020)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9021)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9022)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9023)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9024)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9025)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:02] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:12] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:22] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:22] "GET /health HTTP/1.1" 200 -
-INFO:src.models.arena.ai_optimizer:[Job 8df60cce90a74baba80932b79f2cf0d6] Starting training for mlp on BTC-USD
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:22] "POST /api/v1/model/train HTTP/1.1" 200 -
-INFO:src.models.arena.ai_optimizer:[Job 8df60cce90a74baba80932b79f2cf0d6] Fetching data...
-INFO:src.data_loader.downloader:Cache Hit for BTC-USD (Rows: 1108)
-INFO:src.models.arena.ai_optimizer:[Job 8df60cce90a74baba80932b79f2cf0d6] Initializing model...
-INFO:src.models.arena.ai_optimizer:[Job 8df60cce90a74baba80932b79f2cf0d6] Fitting model (this may take a while)...
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 1047 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.models.arena.ai_optimizer:[Job 8df60cce90a74baba80932b79f2cf0d6] Training complete. Saving model...
-INFO:src.models.arena.lstm_predictor:Model saved to /Users/jerrylee/coding/data/model_registry/archive/mlp_v1.8.pkl
-INFO:src.services.model_registry:Registered model mlp version v1.8
-INFO:src.models.arena.ai_optimizer:[Job 8df60cce90a74baba80932b79f2cf0d6] Job finished successfully. Version: v1.8
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:24] "GET /api/v1/model/train/status/8df60cce90a74baba80932b79f2cf0d6 HTTP/1.1" 200 -
-INFO:__main__:Running backtest for ADBE with strategy=mlp, version=v1.8
-INFO:src.data_loader.downloader:Cache Hit for ADBE (Rows: 508)
-INFO:src.models.arena.lstm_predictor:Model loaded from data/model_registry/archive/mlp_v1.8.pkl
-INFO:__main__:Backtest: Loaded MLP model from Registry (v1.8).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -1.05. Trades: 131
-INFO:src.backend.storage:Saved Backtest Run for ADBE (ID: 9026)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:24] "GET /api/v1/backtest/run?ticker=ADBE&strategy=mlp&version=v1.8 HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:32] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9027)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9028)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9029)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9030)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9031)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9032)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:32] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:33] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:42] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:43:52] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:02] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9033)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9034)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9035)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9036)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9037)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9038)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:02] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:12] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:22] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:32] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9039)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9040)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9041)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9042)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9043)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9044)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:33] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:33] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:42] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:44:52] "POST /api/v1/model/predict HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:45:02] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9045)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9046)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9047)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9048)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9049)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9050)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:45:03] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9051)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9052)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9053)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9054)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9055)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9056)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:45:33] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
-WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:45:33] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:46:01] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.services.news_service:Yahoo RSS 獲取失敗: not well-formed (invalid token): line 4, column 44
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:46:33] "GET /api/v1/macro/overview HTTP/1.1" 200 -
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.data_loader.downloader:Cache Hit for AAPL (Rows: 508)
-INFO:src.models.arena.tree_predictor:Model loaded from /Users/jerrylee/coding/data/model_registry/archive/lightgbm_v1.3.pkl
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:47:01] "POST /api/v1/model/predict HTTP/1.1" 200 -
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 12
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.03. Trades: 34
-INFO:src.models.macro.regime_detector:Starting Expanding Window GMM (N=508, Min=60)...
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: -0.33. Trades: 26
-WARNING:src.backend.backtest_engine:No 'Open' price found. Falling back to Close-to-Close execution (Less Accurate).
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.65. Trades: 13
-INFO:src.models.arena.lstm_predictor:Training MLP (Proxy for LSTM) on 345 samples...
-/Users/jerrylee/coding/venv/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
-  warnings.warn(
-INFO:src.models.arena.lstm_predictor:Training complete.
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 0.32. Trades: 20
-INFO:src.models.arena.tree_predictor:TreePredictor fitted on 406 samples, 6 features
-INFO:src.models.arena.tree_predictor:CRITICAL-002 FIX: Model trained with look-ahead bias prevention. Train size: 406
-INFO:src.backend.backtest_engine:Backtest Complete. Sharpe: 1.18. Trades: 14
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9057)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9058)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9059)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9060)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9061)
-INFO:src.backend.storage:Saved Backtest Run for AAPL (ID: 9062)
-INFO:werkzeug:127.0.0.1 - - [12/Jan/2026 23:47:02] "GET /api/v1/arena/battle?ticker=AAPL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Jan/2026 19:25:05] "GET /api/v1/macro/overview HTTP/1.1" 200 -

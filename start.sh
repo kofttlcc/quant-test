@@ -6,8 +6,13 @@
 set -e
 
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BACKEND_PORT=666
-FRONTEND_PORT=8888
+# Load .env variables
+if [ -f "$PROJECT_DIR/.env" ]; then
+    export $(grep -v '^#' "$PROJECT_DIR/.env" | xargs)
+fi
+
+BACKEND_PORT=${BACKEND_PORT:-666}
+FRONTEND_PORT=${FRONTEND_PORT:-8888}
 
 # 使用虛擬環境中的 Python
 PYTHON_BIN="$PROJECT_DIR/venv/bin/python"

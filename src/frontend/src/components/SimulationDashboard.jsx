@@ -9,7 +9,7 @@ const SimulationDashboard = () => {
 
     const fetchStatus = async () => {
         try {
-            const res = await fetch('http://localhost:5001/api/v1/simulation/status');
+            const res = await fetch('/api/v1/simulation/status');
             if (res.ok) {
                 const data = await res.json();
                 setStatus(data);
@@ -28,7 +28,7 @@ const SimulationDashboard = () => {
     const startSimulation = async () => {
         setLoading(true);
         try {
-            await fetch('http://localhost:5001/api/v1/simulation/start', {
+            await fetch('/api/v1/simulation/start', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ticker: ticker })
@@ -42,7 +42,7 @@ const SimulationDashboard = () => {
 
     const stopSimulation = async () => {
         try {
-            await fetch('http://localhost:5001/api/v1/simulation/stop', { method: 'POST' });
+            await fetch('/api/v1/simulation/stop', { method: 'POST' });
             setStatus(prev => ({ ...prev, status: 'stopped' }));
         } catch (e) {
             console.error(e);
