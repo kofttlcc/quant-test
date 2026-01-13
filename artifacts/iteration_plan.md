@@ -4,6 +4,7 @@
 由 @dataeng, @quant, @mle 聯合執行的代碼審計已完成。我們發現現有系統在數據處理嚴謹性、金融模型深度和機器學習驗證方法上存在顯著差距。本計畫旨在引入已適配的 Antigravity 技能 (`skills/`) 來解決這些問題。
 
 ## 發現的問題 (Findings)
+> **狀態**: ✅ 所有核心問題已在 Phases 0-3 中解決。
 
 ### 1. 數據治理 (@dataeng)
 - **問題 A (嚴重)**: `src/data_loader/cleaning.py` 使用 `interpolate(method='linear')` 修復壞帳。這會人為降低波動率，導致下游風險模型失效。
