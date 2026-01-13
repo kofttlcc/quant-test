@@ -49,6 +49,44 @@ class StatArbEngine:
         poly = np.polyfit(np.log(lags), np.log(tau), 1)
         return poly[0] * 2.0
 
+    def calculate_ou_params(self, spread: pd.Series) -> Dict[str, float]:
+        """
+        [MED-003] 計算 OU 過程參數與半衰期
+        d(Spread) = theta * (mu - Spread) * dt + sigma * dW
+        """
+        if len(spread) < 10:
+             return {"theta": 0, "mu": 0, "sigma": 0, "half_life": np.inf}
+             
+        # 回歸: S(t) - S(t-1) vs S(t-1)
+        # dx = S(t) - S(t-1)
+        # x = S(t-1)
+        # dx = theta*mu*dt - theta*dt * x
+        # linear reg: dx = alpha + beta * x
+        # theta = -beta / dt (assume dt=1)
+        # mu = alpha / (theta * dt) = alpha / -beta
+        
+        spread_np = spread.values
+        x = spread_np[:-1]
+        dx = spread_np[1:] - x
+        
+        alpha, beta = np.polyfit(x, dx, 1)
+        
+        theta = -beta
+        if theta <= 1e-8: # Mean reverting speed too slow
+             half_life = np.inf
+        else:
+             half_life = np.log(2) / theta
+        
+        mu = alpha / theta if theta > 1e-8 else 0
+        sigma = np.std(dx - (alpha + beta * x))
+        
+        return {
+            "theta": theta,
+            "mu": mu,
+            "sigma": sigma,
+            "half_life": half_life
+        }
+
     def test_cointegration(self, series_x: pd.Series, series_y: pd.Series) -> Tuple[bool, float, float]:
         """
         執行 Engle-Granger 兩步協整測試
@@ -114,6 +152,12 @@ class StatArbEngine:
         std = spread.rolling(window=window).std()
         
         z_score = (spread - mean) / std
+        
+        # [MED-003] 計算並報告半衰期
+        ou_params = self.calculate_ou_params(spread.dropna())
+        hl = ou_params.get("half_life", np.inf)
+        if hl > 50 or hl < 1:
+             logger.warning(f"[MED-003] Spread Half-Life {hl:.2f} is outside ideal range (1-50 days).")
         
         # 信號邏輯
         # 當 Spread Z > 2: Spread 過高 -> Short Spread -> Short Y, Long X

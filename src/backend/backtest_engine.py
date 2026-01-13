@@ -183,11 +183,37 @@ class Backtester:
             if exit_idx < len(entry_list):
                 entry_date, entry_price, entry_size = entry_list[exit_idx]
                 trade_pnl = (exec_price - entry_price) * entry_size
-                cumulative_pnl += trade_pnl
+                
+                # [MED-004] Deduct Commission (Round-trip)
+                # Assuming simple fixed rate or reusing self.commission_rate if accessible
+                # Since 'commission' variable is calculated in the loop (line 144: commission = cost * self.commission_rate)
+                # But that's per transaction.
+                # Here we are closing a trade. We paid entry commission and exit commission.
+                # The 'cumulative_pnl' tracked in the loop already subtracts commission at each STEP (line 156: self.cash -= (cost + commission)).
+                # However, valid 'trade_pnl' for analysis usually refers to Gross PnL or Net PnL.
+                # If 'cumulative_pnl' updates cash, it includes commission.
+                # But 'trade_pnl' calculated here is Gross.
+                # Let's deduct commission to make it Net PnL for the trade record.
+                # Entry cost = entry_price * entry_size
+                # Exit cost = exec_price * entry_size
+                # Comm = (Entry + Exit) * rate
+                
+                # We don't have commission_rate in local scope easily unless we use self.commission_rate
+                # Assuming self.commission_rate is available (it is a class member)
+                
+                total_val = (entry_price + exec_price) * abs(entry_size)
+                trade_comm = total_val * self.commission_rate
+                trade_pnl -= trade_comm
+                
+                cumulative_pnl += trade_pnl # Wait, cumulative_pnl in loop is mostly for tracking? 
+                # Actually, 'cumulative_pnl' variable here (line 173 init) aggregates 'trade_pnl'.
+                # So if we want 'cumulative_pnl' to be Net, we must deduct commission.
+                
                 exit_info["pnl"] = round(trade_pnl, 2)
                 exit_info["cumulative_pnl"] = round(cumulative_pnl, 2)
                 exit_info["size"] = round(entry_size, 4)
                 exit_info["value"] = round(exec_price * entry_size, 2)
+                exit_info["commission"] = round(trade_comm, 4) # Add record
                 trade_returns.append(trade_pnl)
                 exit_idx += 1
             
