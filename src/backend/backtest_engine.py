@@ -48,12 +48,14 @@ class Backtester:
         
     def run_backtest(self, df: pd.DataFrame, strategy) -> dict:
         """
-        Run backtest.
+        執行回測
+        
         Args:
-            df: OHLCV DataFrame
-            strategy: Strategy object with generate_signals method
+            df (pd.DataFrame): OHLCV 數據 (必須包含 DatetimeIndex)
+            strategy: 策略對象，必須包含 generate_signals 方法
+            
         Returns:
-            dict: Metrics and Equity Curve
+            dict: 包含 Metrics (性能指標), Equity Curve (權益曲線) 等
         """
         if df.empty:
             return {"error": "Empty DataFrame"}
@@ -291,14 +293,14 @@ class Backtester:
 
     def run_portfolio_backtest(self, asset_returns: pd.DataFrame, weights: pd.DataFrame) -> dict:
         """
-        Run portfolio backtest with dynamic weights.
+        執行投資組合回測 (支持動態權重)
         
         Args:
-            asset_returns: DataFrame of asset returns (index=Date, columns=Assets)
-            weights: DataFrame of asset weights (index=Date, columns=Assets)
+            asset_returns (pd.DataFrame): 資產收益率矩陣 (index=Date, columns=Assets)
+            weights (pd.DataFrame): 資產權重矩陣 (index=Date, columns=Assets)
             
         Returns:
-            dict: Metrics and Equity Curve
+            dict: 性能指標與權益曲線
         """
         # Align dates
         common_idx = asset_returns.index.intersection(weights.index)
