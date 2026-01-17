@@ -1,8 +1,4 @@
 ---
-description: Claude Team (Auditor) 標準作業程序：雙重審計閘門（規劃/代碼）、質量控制與知識進化
----
-
----
 description: Claude Team (Auditor) 標準作業程序：雙重審計、強制文件產出與知識進化
 ---
 
@@ -21,6 +17,8 @@ description: Claude Team (Auditor) 標準作業程序：雙重審計、強制文
 
 1.  **Read Builder's Output (讀取 Builder 的作業)**:
     * 讀取：`artifacts/implementation_plan.md` (檢查規劃)
+    * 讀取：`artifacts/task.md (檢查任務清單)
+    * 讀取：`artifacts/report.md` (檢查預執行報告)
     * 讀取：`artifacts/handoff_notes.md` (檢查執行結果)
 2.  **Determine Mode**:
     * **Mode A (規劃審計)**: 有 Plan，無新代碼/Handoff Notes。 -> 審查邏輯與完整性。
