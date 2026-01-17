@@ -47,7 +47,7 @@ Usage notes:
 
 <skill>
 <name>writing-skills</name>
-<description>Use when creating new skills, editing existing skills, or verifying skills work before deployment</description>
+<description>Use when 創建新的 skills, editing existing skills, or verifying skills work before deployment</description>
 <location>project</location>
 </skill>
 
@@ -119,7 +119,7 @@ Usage notes:
 
 <skill>
 <name>tailored-resume-generator</name>
-<description>Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances</description>
+<description>Analyzes job descriptions and 生成s tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances</description>
 <location>project</location>
 </skill>
 
@@ -137,7 +137,7 @@ Usage notes:
 
 <skill>
 <name>slack-gif-creator</name>
-<description>Toolkit for creating animated GIFs optimized for Slack, with validators for size constraints and composable animation primitives. This skill applies when users request animated GIFs or emoji animations for Slack from descriptions like "make me a GIF for Slack of X doing Y".</description>
+<description>Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack."</description>
 <location>project</location>
 </skill>
 
@@ -148,20 +148,20 @@ Usage notes:
 </skill>
 
 <skill>
-<name>skill-from-masters</name>
-<description>Help users create high-quality skills by discovering and incorporating proven methodologies from domain experts. Use this skill BEFORE skill-creator when users want to create a new skill - it enhances skill-creator by first identifying expert frameworks and best practices to incorporate. Triggers on requests like "help me create a skill for X" or "I want to make a skill that does Y". This skill guides methodology selection, then hands off to skill-creator for the actual skill generation.</description>
-<location>project</location>
-</skill>
-
-<skill>
 <name>skill-creator</name>
 <description>Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.</description>
 <location>project</location>
 </skill>
 
 <skill>
+<name>skill-cleaner</name>
+<description>Standardizes and refactors other skills into the Antigravity skill format (separating scripts, examples, and resources).</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>requesting-code-review</name>
-<description>Use when completing tasks, implementing major features, or before merging to verify work meets requirements</description>
+<description>Use when completing tasks, implementing major features, or before 合併 to verify work meets requirements</description>
 <location>project</location>
 </skill>
 
@@ -173,7 +173,7 @@ Usage notes:
 
 <skill>
 <name>raffle-winner-picker</name>
-<description>Picks random winners from lists, spreadsheets, or Google Sheets for giveaways, raffles, and contests. Ensures fair, unbiased selection with transparency.</description>
+<description>Picks random winners from lists, 電子表格s, or Google Sheets for giveaways, raffles, and contests. Ensures fair, unbiased selection with transparency.</description>
 <location>project</location>
 </skill>
 
@@ -209,7 +209,7 @@ Usage notes:
 
 <skill>
 <name>langsmith-fetch</name>
-<description>Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or examining agent performance. Automatically fetches recent traces and analyzes execution patterns. Requires langsmith-fetch CLI installed.</description>
+<description>Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or examining agent performance. Automatically fetches recent traces and 分析s execution patterns. Requires langsmith-fetch CLI installed.</description>
 <location>project</location>
 </skill>
 
@@ -227,7 +227,7 @@ Usage notes:
 
 <skill>
 <name>image-enhancer</name>
-<description>Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.</description>
+<description>Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for 簡報s, 文檔ation, or social media posts.</description>
 <location>project</location>
 </skill>
 
@@ -287,7 +287,7 @@ Usage notes:
 
 <skill>
 <name>content-research-writer</name>
-<description>Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.</description>
+<description>Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing 處理 from solo effort to collaborative partnership.</description>
 <location>project</location>
 </skill>
 
@@ -305,7 +305,25 @@ Usage notes:
 
 <skill>
 <name>competitive-ads-extractor</name>
-<description>Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.</description>
+<description>Extracts and 分析s competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>quant-ml-purged-cv-integration</name>
+<description>將 Purged CV 整合到 ML 訓練流程的標準模式</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>quant-data-cleaning-pipeline</name>
+<description>金融時間序列數據清洗的標準流程，整合 MAD 檢測與布朗橋插值</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>dual-brain-handoff-protocol</name>
+<description>Builder/Auditor 雙腦協議的標準交接流程</description>
 <location>project</location>
 </skill>
 
@@ -342,6 +360,12 @@ Usage notes:
 <skill>
 <name>algorithmic-art</name>
 <description>Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>advanced-feature-engineering</name>
+<description>生成適用於金融機器學習的高質量特徵。包含分數階差分 (Fractional Differentiation) 與無前視偏差的滾動標準化。</description>
 <location>project</location>
 </skill>
 </available_skills>

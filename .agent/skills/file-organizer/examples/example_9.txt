@@ -1,0 +1,38 @@
+
+## 範例
+
+### Example 1: Organizing Downloads (From Justin Dielmann)
+
+**User**: "My Downloads folder is a mess with 500+ files. Help me organize it."
+
+**Process**:
+1. Analyzes Downloads folder
+2. Finds patterns: work docs, personal photos, installers, random PDFs
+3. Proposes structure:
+   - Downloads/
+     - Work/
+     - Personal/
+     - Installers/ (DMG, PKG files)
+     - Archive/
+     - ToSort/ (things needing decisions)
+4. Asks for confirmation
+5. Moves files intelligently based on content and names
+6. Results: 500 files → 5 organized folders
+
+### Example 2: Finding and Removing Duplicates
+
+**User**: "Find duplicate files in my Documents and help me decide which to keep."
+
+**Output**:
+```markdown
+# Found 23 Sets of Duplicates (156 MB total)
+
+## Duplicate Set 1: "proposal.pdf"
+- `/Documents/proposal.pdf` (2.3 MB, modified: 2024-03-15)
+- `/Documents/old/proposal.pdf` (2.3 MB, modified: 2024-03-15)
+- `/Desktop/proposal.pdf` (2.3 MB, modified: 2024-03-10)
+
+**Recommendation**: Keep `/Documents/proposal.pdf` (most recent in correct location)
+Delete the other 2 copies?
+
+[Continue for all duplicates...]

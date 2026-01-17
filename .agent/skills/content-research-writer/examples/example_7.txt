@@ -1,0 +1,40 @@
+   # Feedback: [Section Name]
+   
+   ## What Works Well ✓
+   - [Strength 1]
+   - [Strength 2]
+   - [Strength 3]
+   
+   ## Suggestions for Improvement
+   
+   ### Clarity
+   - [Specific issue] → [Suggested fix]
+   - [Complex sentence] → [Simpler alternative]
+   
+   ### Flow
+   - [Transition issue] → [Better connection]
+   - [Paragraph order] → [Suggested reordering]
+   
+   ### Evidence
+   - [Claim needing support] → [Add citation or example]
+   - [Generic statement] → [Make more specific]
+   
+   ### Style
+   - [Tone inconsistency] → [Match your voice better]
+   - [Word choice] → [Stronger alternative]
+   
+   ## Specific Line Edits
+   
+   Original:
+   > [Exact quote from draft]
+   
+   Suggested:
+   > [Improved version]
+   
+   Why: [Explanation]
+   
+   ## Questions to Consider
+   - [Thought-provoking question 1]
+   - [Thought-provoking question 2]
+   
+   Ready to move to next section!

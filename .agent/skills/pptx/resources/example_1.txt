@@ -1,0 +1,29 @@
+        {
+          "slide-0": {
+            "shape-0": {
+              "placeholder_type": "TITLE",  // or null for non-placeholders
+              "left": 1.5,                  // position in inches
+              "top": 2.0,
+              "width": 7.5,
+              "height": 1.2,
+              "paragraphs": [
+                {
+                  "text": "Paragraph text",
+                  // Optional properties (only included when non-default):
+                  "bullet": true,           // explicit bullet detected
+                  "level": 0,               // only included when bullet is true
+                  "alignment": "CENTER",    // CENTER, RIGHT (not LEFT)
+                  "space_before": 10.0,     // space before paragraph in points
+                  "space_after": 6.0,       // space after paragraph in points
+                  "line_spacing": 22.4,     // line spacing in points
+                  "font_name": "Arial",     // from first run
+                  "font_size": 14.0,        // in points
+                  "bold": true,
+                  "italic": false,
+                  "underline": false,
+                  "color": "FF0000"         // RGB color
+                }
+              ]
+            }
+          }
+        }

@@ -1,0 +1,6 @@
+   
+   **Numbered References**:
+   ```markdown
+   Studies show 40% productivity improvement [1].
+   
+   [1] McKinsey Global Institute. (2024)...

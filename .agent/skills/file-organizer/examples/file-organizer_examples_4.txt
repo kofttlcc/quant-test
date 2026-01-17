@@ -1,0 +1,9 @@
+Photos/
+├── 2023/
+│   ├── 01-January/
+│   ├── 02-February/
+│   └── ...
+├── 2024/
+│   ├── 01-January/
+│   └── ...
+└── Unsorted/

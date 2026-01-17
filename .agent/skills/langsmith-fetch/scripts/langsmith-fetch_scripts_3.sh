@@ -1,0 +1,5 @@
+# After specific timestamp
+langsmith-fetch traces --after "2025-12-24T13:00:00Z" --limit 20
+
+# Last N minutes (most common)
+langsmith-fetch traces --last-n-minutes 60 --limit 100

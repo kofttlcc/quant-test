@@ -1,0 +1,6 @@
+
+### 3. Install
+
+```bash
+pip install composio          # Python
+npm install @composio/core    # TypeScript

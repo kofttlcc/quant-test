@@ -1,0 +1,6 @@
+
+## Complete 範例
+
+1. Download video in 1080p as MP4:
+```bash
+python scripts/download_video.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -q 1080p

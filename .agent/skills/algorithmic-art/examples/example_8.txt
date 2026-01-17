@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- p5.js from CDN - always available -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+  <style>
+    /* All styling inline - clean, minimal */
+    /* Canvas on top, controls below */
+  </style>
+</head>
+<body>
+  <div id="canvas-container"></div>
+  <div id="controls">
+    <!-- All parameter controls -->
+  </div>
+  <script>
+    // ALL p5.js code inline here
+    // Parameter objects, classes, functions
+    // setup() and draw()
+    // UI handlers
+    // Everything self-contained
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+
+## Instructions
+
+When a user requests invoice organization:
+
+1. **Scan the Folder**
+   
+   Identify all invoice files:
+   ```bash
+   # Find all invoice-related files
+   find . -type f \( -name "*.pdf" -o -name "*.jpg" -o -name "*.png" \) -print

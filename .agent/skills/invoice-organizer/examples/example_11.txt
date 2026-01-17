@@ -1,0 +1,21 @@
+   
+   範例:
+   - `2024-03-15 Adobe - Invoice - Creative Cloud.pdf`
+   - `2024-01-10 Amazon - Receipt - Office Supplies.pdf`
+   - `2023-12-01 Stripe - Invoice - Monthly Payment Processing.pdf`
+   
+   **Filename 最佳實踐**:
+   - Remove special characters except hyphens
+   - Capitalize vendor names properly
+   - Keep descriptions concise but meaningful
+   - Use consistent date format (YYYY-MM-DD) for sorting
+   - Preserve original file extension
+
+5. **Execute Organization**
+   
+   Before moving files, show the plan:
+   
+   ```markdown
+   # Organization Plan
+   
+   ## Proposed Structure

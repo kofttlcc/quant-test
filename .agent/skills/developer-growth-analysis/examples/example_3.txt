@@ -1,0 +1,13 @@
+   ## Curated Learning Resources
+
+   ### For: [Improvement Area]
+
+   1. **[Article Title]** - [Date]
+      [Description of what it covers and why it's relevant to your improvement area]
+      [Link]
+
+   2. **[Article Title]** - [Date]
+      [Description]
+      [Link]
+
+   [Repeat for other improvement areas]

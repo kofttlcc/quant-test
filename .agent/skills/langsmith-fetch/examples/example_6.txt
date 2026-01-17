@@ -1,0 +1,10 @@
+
+## Core Workflows
+
+### Workflow 1: Quick Debug Recent Activity
+
+**When user asks:** "What just happened?" or "Debug my agent"
+
+**Execute:**
+```bash
+langsmith-fetch traces --last-n-minutes 5 --limit 5 --format pretty

@@ -1,0 +1,8 @@
+Invoices/
+├── 2023/
+│   ├── Software/
+│   ├── Hardware/
+│   ├── Services/
+│   └── Travel/
+└── 2024/
+    └── ...

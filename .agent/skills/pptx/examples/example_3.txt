@@ -1,0 +1,8 @@
+   * The script handles duplicating repeated slides, deleting unused slides, and reordering automatically
+   * Slide indices are 0-based (first slide is 0, second is 1, etc.)
+   * The same slide index can appear multiple times to duplicate that slide
+
+5. **Extract ALL text using the `inventory.py` script**:
+   * **Run inventory extraction**:
+     ```bash
+     python scripts/inventory.py working.pptx text-inventory.json

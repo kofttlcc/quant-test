@@ -1,0 +1,19 @@
+   
+   This CSV is useful for:
+   - Importing into accounting software
+   - Sharing with accountants
+   - Expense tracking and reporting
+   - Tax preparation
+
+7. **Provide Completion Summary**
+   
+   ```markdown
+   # Organization Complete! 📊
+   
+   ## Summary
+   - **Processed**: [X] invoices
+   - **Date range**: [earliest] to [latest]
+   - **Total amount**: $[sum] (if amounts extracted)
+   - **Vendors**: [Y] unique vendors
+   
+   ## New Structure

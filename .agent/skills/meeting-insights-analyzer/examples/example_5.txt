@@ -1,0 +1,38 @@
+   # Meeting Insights Summary
+   
+   **Analysis Period**: [Date range]
+   **Meetings Analyzed**: [X meetings]
+   **Total Duration**: [X hours]
+   
+   ## Key Patterns Identified
+   
+   ### 1. [Primary Pattern]
+   - **Observed**: [What you saw]
+   - **Impact**: [Why it matters]
+   - **Recommendation**: [How to improve]
+   
+   ### 2. [Second Pattern]
+   [Same structure]
+   
+   ## Communication Strengths
+   
+   1. [Strength 1 with example]
+   2. [Strength 2 with example]
+   3. [Strength 3 with example]
+   
+   ## Growth Opportunities
+   
+   1. **[Area 1]**: [Specific, actionable advice]
+   2. **[Area 2]**: [Specific, actionable advice]
+   3. **[Area 3]**: [Specific, actionable advice]
+   
+   ## Speaking Statistics
+   
+   - Average speaking time: [X% of meeting]
+   - Questions asked: [X per meeting average]
+   - Filler words: [X per minute]
+   - Interruptions: [X given / Y received per meeting]
+   
+   ## 後續步驟
+   
+   [3-5 concrete actions to improve communication]

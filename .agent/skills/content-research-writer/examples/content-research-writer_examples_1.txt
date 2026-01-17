@@ -1,0 +1,21 @@
+## Research Compiled
+
+### Recent Data
+- Gartner: 80% of PMs will use AI tools by 2025 [1]
+- Survey: 45% report faster feature shipping [2]
+- Case study: Airbnb's AI-assisted prioritization [3]
+
+### Expert Quotes
+- "AI amplifies PM judgment, not replaces it" - Marty Cagan
+- [Additional quotes with citations]
+
+### Real 範例
+1. **Company A**: Used AI for user research synthesis
+   - Result: 60% time savings
+   - Source: [citation]
+
+2. **Company B**: AI-powered roadmap analysis
+   - Result: Better stakeholder alignment
+   - Source: [citation]
+
+All added to your outline with proper citations.

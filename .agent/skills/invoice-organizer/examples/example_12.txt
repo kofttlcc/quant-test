@@ -1,0 +1,12 @@
+   
+   ## Sample Changes
+   
+   Before: `invoice_adobe_march.pdf`
+   After: `2024-03-15 Adobe - Invoice - Creative Cloud.pdf`
+   Location: `Invoices/2024/Software/Adobe/`
+   
+   Before: `IMG_2847.jpg`
+   After: `2024-02-10 Staples - Receipt - Office Supplies.jpg`
+   Location: `Invoices/2024/Office/Staples/`
+   
+   Process [X] files? (yes/no)

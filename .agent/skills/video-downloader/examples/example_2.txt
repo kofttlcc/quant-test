@@ -1,0 +1,7 @@
+
+### Audio Only
+
+Use `-a` or `--audio-only` to download only audio as MP3:
+
+```bash
+python scripts/download_video.py "URL" -a

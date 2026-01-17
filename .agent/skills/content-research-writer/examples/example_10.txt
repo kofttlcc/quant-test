@@ -1,0 +1,47 @@
+   # Full Draft Review
+   
+   ## Overall Assessment
+   
+   **Strengths**:
+   - [Major strength 1]
+   - [Major strength 2]
+   - [Major strength 3]
+   
+   **Impact**: [Overall effectiveness assessment]
+   
+   ## Structure & Flow
+   - [Comments on organization]
+   - [Transition quality]
+   - [Pacing assessment]
+   
+   ## Content Quality
+   - [Argument strength]
+   - [Evidence sufficiency]
+   - [Example effectiveness]
+   
+   ## Technical Quality
+   - Grammar and mechanics: [assessment]
+   - Consistency: [assessment]
+   - Citations: [completeness check]
+   
+   ## Readability
+   - Clarity score: [evaluation]
+   - Sentence variety: [evaluation]
+   - Paragraph length: [evaluation]
+   
+   ## Final Polish Suggestions
+   
+   1. **Introduction**: [Specific improvements]
+   2. **Body**: [Specific improvements]
+   3. **Conclusion**: [Specific improvements]
+   4. **Title**: [Options if needed]
+   
+   ## Pre-Publish Checklist
+   - [ ] All claims sourced
+   - [ ] Citations formatted
+   - [ ] 範例 clear
+   - [ ] Transitions smooth
+   - [ ] Call to action present
+   - [ ] Proofread for typos
+   
+   Ready to publish! 🚀

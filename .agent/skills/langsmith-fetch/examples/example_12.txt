@@ -1,0 +1,13 @@
+
+---
+
+## Common Use Cases
+
+### Use Case 1: "Agent Not Responding"
+
+**User says:** "My agent isn't doing anything"
+
+**Steps:**
+1. Check if traces exist:
+   ```bash
+   langsmith-fetch traces --last-n-minutes 5 --limit 5

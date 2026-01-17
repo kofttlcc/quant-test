@@ -1,0 +1,11 @@
+   I found [X] invoices from [date range].
+   
+   How would you like them organized?
+   
+   1. **By Vendor** (Adobe/, Amazon/, Stripe/, etc.)
+   2. **By Category** (Software/, Office Supplies/, Travel/, etc.)
+   3. **By Date** (2024/Q1/, 2024/Q2/, etc.)
+   4. **By Tax Category** (Deductible/, Personal/, etc.)
+   5. **Custom** (describe your structure)
+   
+   Or I can use a default structure: Year/Category/Vendor

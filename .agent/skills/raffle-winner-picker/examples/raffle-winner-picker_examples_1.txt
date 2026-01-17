@@ -1,0 +1,5 @@
+Pick a random winner from this list:
+- Alice (alice@email.com)
+- Bob (bob@email.com)
+- Carol (carol@email.com)
+...

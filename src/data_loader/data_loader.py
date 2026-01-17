@@ -166,6 +166,25 @@ class DataLoader:
                     results[t] = df
                 
                 # Apply Governance Cleaning (Phase 1)
+                # MEM-002 FIX: Regulated Interpolation (No blind ffill)
+                for t in results:
+                    # 1. Detect Gaps > 5 Days
+                    df = results[t]
+                    if df.empty: continue
+                    
+                    df = df.asfreq('D') # Reindex to daily to expose gaps
+                    
+                    # 2. Interpolate small gaps (limit=3 days)
+                    # Use 'time' method to respect distance
+                    # Only interpolate linear columns like Open/Close
+                    numeric_cols = df.select_dtypes(include=['float', 'int']).columns
+                    df[numeric_cols] = df[numeric_cols].interpolate(method='time', limit=3)
+                    
+                    # 3. Drop remaining NaNs (True gaps/Suspensions) - Do NOT fill with old data blindly
+                    df = df.dropna(how='all') 
+                    
+                    results[t] = df
+
                 if GovernanceCleaner:
                     cleaner = GovernanceCleaner()
                     for t in results:

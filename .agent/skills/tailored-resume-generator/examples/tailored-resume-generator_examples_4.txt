@@ -1,0 +1,18 @@
+I need a tailored resume for this job:
+
+Senior Data Analyst Position
+
+需求:
+- 5+ years experience in data analysis
+- Expert in SQL, Python, and data visualization tools
+- Experience with A/B testing and statistical analysis
+- Strong communication skills to present findings
+- Healthcare industry experience preferred
+
+My background:
+- Data Analyst at RetailCo (2019-2024)
+- Created dashboards using Tableau and Power BI
+- Built Python scripts for data automation
+- Worked with marketing team on campaign analysis
+- Business Analytics degree
+- Also did 1 year internship at HealthPlus clinic

@@ -1,0 +1,28 @@
+Error Analysis - Last 30 Minutes
+
+Total Traces: 50
+Failed Traces: 7 (14% failure rate)
+
+Error Breakdown:
+1. Neo4j Connection Timeout (4 occurrences)
+   - Agent: cypher
+   - Tool: search_nodes
+   - First occurred: 14:32
+   - Last occurred: 14:45
+   - Pattern: Happens during peak load
+
+2. Memory Store Failed (2 occurrences)
+   - Agent: memento
+   - Tool: store_memory
+   - Error: "Pinecone rate limit exceeded"
+   - Occurred: 14:38, 14:41
+
+3. Tool Not Found (1 occurrence)
+   - Agent: sqlcrm
+   - Attempted tool: "export_report" (doesn't exist)
+   - Occurred: 14:35
+
+💡 Recommendations:
+1. Add retry logic for Neo4j timeouts
+2. Implement rate limiting for Pinecone
+3. Fix sqlcrm tool configuration

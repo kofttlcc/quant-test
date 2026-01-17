@@ -1,0 +1,7 @@
+<evaluation>
+  <qa_pair>
+    <question>Find discussions about AI model launches with animal codenames. One model needed a specific safety designation that uses the format ASL-X. What number X was being determined for the model named after a spotted wild cat?</question>
+    <answer>3</answer>
+  </qa_pair>
+<!-- More qa_pairs... -->
+</evaluation>

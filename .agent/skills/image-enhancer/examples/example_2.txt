@@ -1,0 +1,6 @@
+
+## Example
+
+**User**: "Improve the image quality of screenshot-2024.png"
+
+**Output**:

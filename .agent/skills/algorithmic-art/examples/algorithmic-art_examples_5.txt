@@ -1,0 +1,5 @@
+<div class="control-group">
+    <label>Parameter Name</label>
+    <input type="range" id="param" min="..." max="..." step="..." value="..." oninput="updateParam('param', this.value)">
+    <span class="value-display" id="param-value">...</span>
+</div>

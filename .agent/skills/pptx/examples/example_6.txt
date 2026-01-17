@@ -1,0 +1,8 @@
+
+## Converting Slides to Images
+
+To visually analyze PowerPoint slides, convert them to images using a two-step process:
+
+1. **Convert PPTX to PDF**:
+   ```bash
+   soffice --headless --convert-to pdf template.pptx

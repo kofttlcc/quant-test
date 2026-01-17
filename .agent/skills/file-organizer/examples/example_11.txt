@@ -1,0 +1,8 @@
+
+## Specific Changes
+1. Move 12 projects not touched since 2022 → Archive/
+2. Consolidate 4 duplicate project folders
+3. Rename projects to consistent format: "client-name-project-name"
+4. Create Archive for old work
+
+Want me to implement this?

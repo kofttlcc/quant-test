@@ -1,0 +1,14 @@
+Accessing Facebook Ad Library...
+Searching for: Notion
+Found: 23 active ads
+
+Extracting screenshots...
+[████████████████████] 100%
+
+Saved to: competitor-ads/notion/
+- ad-001-collaboration.png
+- ad-002-productivity.png
+- ad-003-templates.png
+...
+
+Analyzing messaging...

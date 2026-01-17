@@ -1,0 +1,27 @@
+   "paragraphs": [
+     {
+       "text": "New presentation title text",
+       "alignment": "CENTER",
+       "bold": true
+     },
+     {
+       "text": "Section Header",
+       "bold": true
+     },
+     {
+       "text": "First bullet point without bullet symbol",
+       "bullet": true,
+       "level": 0
+     },
+     {
+       "text": "Red colored text",
+       "color": "FF0000"
+     },
+     {
+       "text": "Theme colored text",
+       "theme_color": "DARK_1"
+     },
+     {
+       "text": "Regular paragraph text without special formatting"
+     }
+   ]

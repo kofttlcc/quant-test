@@ -1,0 +1,22 @@
+
+---
+
+## 快速參考
+
+```bash
+# Most common commands
+
+# Quick debug
+langsmith-fetch traces --last-n-minutes 5 --limit 5 --format pretty
+
+# Specific trace
+langsmith-fetch trace <trace-id> --format pretty
+
+# Export session
+langsmith-fetch traces ./debug-session --last-n-minutes 30 --limit 50
+
+# Find errors
+langsmith-fetch traces --last-n-minutes 30 --limit 50 --format raw | grep -i error
+
+# With metadata
+langsmith-fetch traces --limit 10 --include-metadata

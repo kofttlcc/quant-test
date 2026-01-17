@@ -1,0 +1,7 @@
+
+## Creating Thumbnail Grids
+
+To create visual thumbnail grids of PowerPoint slides for quick analysis and reference:
+
+```bash
+python scripts/thumbnail.py template.pptx [output_prefix]

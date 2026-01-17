@@ -1,0 +1,9 @@
+My product: [description]
+Ideal customer profile:
+- Industry: [industry]
+- Company size: [size range]
+- Location: [location]
+- Current pain points: [pain points]
+- Technologies they use: [tech stack]
+
+Find me 20 qualified leads with contact strategies for each.

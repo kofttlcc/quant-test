@@ -1,0 +1,36 @@
+   # Lead Research Results
+   
+   ## Summary
+   - Total leads found: [X]
+   - High priority (8-10): [X]
+   - Medium priority (5-7): [X]
+   - Average fit score: [X]
+   
+   ---
+   
+   ## Lead 1: [Company Name]
+   
+   **Website**: [URL]
+   **Priority Score**: [X/10]
+   **Industry**: [Industry]
+   **Size**: [Employee count/revenue range]
+   
+   **Why They're a Good Fit**:
+   [2-3 specific reasons based on their business]
+   
+   **Target Decision Maker**: [Role/Title]
+   **LinkedIn**: [URL if available]
+   
+   **Value Proposition for Them**:
+   [Specific benefit for this company]
+   
+   **Outreach Strategy**:
+   [Personalized approach - mention specific pain points, recent company news, or relevant context]
+   
+   **Conversation Starters**:
+   - [Specific point 1]
+   - [Specific point 2]
+   
+   ---
+   
+   [Repeat for each lead]

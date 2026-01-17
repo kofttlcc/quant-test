@@ -1,0 +1,8 @@
+Invoices/
+├── Deductible/
+│   ├── Software/
+│   ├── Office/
+│   └── Professional-Services/
+├── Partially-Deductible/
+│   └── Meals-Travel/
+└── Personal/

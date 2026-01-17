@@ -1,0 +1,11 @@
+1. 異常值檢測 (MAD)
+   └─→ 計算 Modified Z-Score = 0.6745 * |X - median| / MAD
+   └─→ 閾值 > 3.5 標記為異常
+
+2. 異常值處理
+   └─→ 標記為 NaN（而非直接刪除或替換）
+
+3. 缺失值填補 (Brownian Bridge)
+   └─→ 計算局部波動率 σ（前 20 期標準差）
+   └─→ P(t) = Drift + N(0, σ² * t(1-t))
+   └─→ 必須支持 random_state 確保可重現性

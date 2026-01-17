@@ -1,0 +1,28 @@
+
+## Instructions
+
+When a user requests file organization help:
+
+1. **Understand the Scope**
+   
+   Ask clarifying questions:
+   - Which directory needs organization? (Downloads, Documents, entire home folder?)
+   - What's the main problem? (Can't find things, duplicates, too messy, no structure?)
+   - Any files or folders to avoid? (Current projects, sensitive data?)
+   - How aggressively to organize? (Conservative vs. comprehensive cleanup)
+
+2. **Analyze Current State**
+   
+   Review the target directory:
+   ```bash
+   # Get overview of current structure
+   ls -la [target_directory]
+   
+   # Check file types and sizes
+   find [target_directory] -type f -exec file {} \; | head -20
+   
+   # Identify largest files
+   du -sh [target_directory]/* | sort -rh | head -20
+   
+   # Count file types
+   find [target_directory] -type f | sed 's/.*\.//' | sort | uniq -c | sort -rn

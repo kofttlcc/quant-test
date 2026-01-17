@@ -1,0 +1,5 @@
+pptx/
+  SKILL.md       # 概述 + workflows
+  pptxgenjs.md   # 600 lines API reference
+  ooxml.md       # 500 lines XML structure
+  scripts/       # Executable tools

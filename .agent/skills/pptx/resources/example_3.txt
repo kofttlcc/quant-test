@@ -1,0 +1,8 @@
+   {
+     "slide-0": {
+       "shape-0": {
+         "paragraphs": [...] // This shape gets new text
+       }
+       // shape-1 and shape-2 from inventory will be cleared automatically
+     }
+   }

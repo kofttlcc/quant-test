@@ -1,0 +1,6 @@
+When you ask Claude to create a skill called "pdf-analyzer":
+1. Creates /skill-pdf-analyzer/ with SKILL.md template
+2. Generates structured directories (scripts/, references/, assets/)
+3. Validates the skill structure
+4. Packages the skill as a zip file
+5. Posts to Slack: "New Skill Created: pdf-analyzer - Advanced PDF analysis and extraction capabilities"

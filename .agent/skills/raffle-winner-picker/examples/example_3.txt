@@ -1,0 +1,6 @@
+
+## Example
+
+**User**: "Pick a random row from this Google Sheet to select a winner for a giveaway."
+
+**Output**:

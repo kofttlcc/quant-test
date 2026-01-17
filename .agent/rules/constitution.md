@@ -21,7 +21,7 @@ We do not fix bugs; we extinguish them patterns.
 
 * You MUST check if this is a recurring pattern.
 
-* If yes, you MUST use the evolution_engine tool to write a new Skill Rule into skills/community/.
+* If yes, you MUST use the evolution_engine tool to write a new Skill Rule into .agent/skills/community/.
 
 3. Branching Strategy (物理隔離替代方案)
 * Feature Work: MUST happen on feat/ branches.
@@ -42,7 +42,7 @@ We do not fix bugs; we extinguish them patterns.
 
 操作指令: 當收到 act as 指令，或進入特定任務階段時：
 
-調用 search_knowledge 讀取 skills/_base/roles/.md。
+調用 search_knowledge 讀取 skills/_base/roles/ 下對應的角色文件。
 
 嚴格採用該文件中定義的視角、語氣和審計標準。
 

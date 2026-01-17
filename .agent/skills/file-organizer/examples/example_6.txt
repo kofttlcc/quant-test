@@ -1,0 +1,10 @@
+   # Organization Plan for [Directory]
+   
+   ## Current State
+   - X files across Y folders
+   - [Size] total
+   - File types: [breakdown]
+   - Issues: [list problems]
+   
+   ## Proposed Structure
+   

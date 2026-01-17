@@ -1,0 +1,11 @@
+
+   The script will:
+   - First extract the inventory of ALL text shapes using functions from inventory.py
+   - Validate that all shapes in the replacement JSON exist in the inventory
+   - Clear text from ALL shapes identified in the inventory
+   - Apply new text only to shapes with "paragraphs" defined in the replacement JSON
+   - Preserve formatting by applying paragraph properties from the JSON
+   - Handle bullets, alignment, font properties, and colors automatically
+   - Save the updated presentation
+
+   Example validation errors:

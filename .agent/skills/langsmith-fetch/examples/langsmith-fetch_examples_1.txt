@@ -1,0 +1,21 @@
+Found 3 traces in the last 5 minutes:
+
+Trace 1: ✅ Success
+- Agent: memento
+- Tools: recall_memories, create_entities
+- Duration: 2.3s
+- Tokens: 1,245
+
+Trace 2: ❌ Error
+- Agent: cypher
+- Error: "Neo4j connection timeout"
+- Duration: 15.1s
+- Failed at: search_nodes tool
+
+Trace 3: ✅ Success
+- Agent: memento
+- Tools: store_memory
+- Duration: 1.8s
+- Tokens: 892
+
+💡 Issue found: Trace 2 failed due to Neo4j timeout. Recommend checking database connection.

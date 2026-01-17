@@ -1,0 +1,16 @@
+   
+   ## Files Created
+   - `/Invoices/` - Organized invoices
+   - `/Invoices/invoice-summary.csv` - Spreadsheet for accounting
+   - `/Invoices/originals/` - Original files (if copied)
+   
+   ## Files Needing Review
+   [List any files where information couldn't be extracted completely]
+   
+   ## 後續步驟
+   1. Review the `invoice-summary.csv` file
+   2. Check files in "Needs Review" folder
+   3. Import CSV into your accounting software
+   4. Set up auto-organization for future invoices
+   
+   Ready for tax season! 🎉

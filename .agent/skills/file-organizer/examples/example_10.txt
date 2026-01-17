@@ -1,0 +1,9 @@
+# Analysis of ~/Projects
+
+## Current Structure Issues
+- Mix of active and archived projects (3+ years old)
+- No consistent naming convention
+- Some projects at root, others in random subfolders
+- Duplicate folders (project-name, project-name-old, project-name-v2)
+
+## Proposed Structure

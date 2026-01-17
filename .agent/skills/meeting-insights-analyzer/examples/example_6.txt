@@ -1,0 +1,35 @@
+# Conflict Avoidance Patterns
+
+Found 23 instances across 15 meetings where you used indirect 
+communication or avoided addressing tensions directly.
+
+## Pattern: Hedging on Critical Feedback
+
+**Frequency**: 8 times across 7 meetings
+
+**Example 1: 1:1 with Sarah** - 00:14:32
+
+**What Happened**:
+> "So, I was thinking... maybe we could, like, potentially 
+> consider looking at the timeline again? I mean, if you 
+> think that makes sense. But whatever you think is best!"
+
+**Why This Matters**:
+You needed to address that Sarah's project was behind schedule, 
+but the hedging language ("maybe", "potentially", "if you think") 
+and the deflection at the end ("whatever you think") made it easy 
+for her to miss the urgency.
+
+**Better Approach**:
+"Sarah, the project is two weeks behind schedule. We need to 
+discuss what's blocking progress and create a new timeline 
+today."
+
+[Additional examples...]
+
+## Recommendations
+
+1. **Name the issue directly** in the first sentence
+2. **Remove hedging words** like "maybe," "kind of," "sort of"
+3. **Ask specific questions** instead of hinting
+4. **Schedule difficult conversations** instead of raising them casually

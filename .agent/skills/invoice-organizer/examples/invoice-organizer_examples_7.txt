@@ -1,0 +1,8 @@
+Invoices/
+├── 2024/
+│   ├── Q1/
+│   │   ├── Software/
+│   │   ├── Office/
+│   │   └── Travel/
+│   └── Q2/
+│       └── ...

@@ -1,0 +1,6 @@
+langsmith-debug/
+├── sessions/
+│   ├── 2025-12-24/
+│   └── 2025-12-25/
+├── error-cases/
+└── performance-tests/

@@ -1,0 +1,8 @@
+   
+   Maintain a running citations list:
+   ```markdown
+   ## References
+   
+   1. Author. (Year). "Title". Publication.
+   2. Author. (Year). "Title". Publication.
+   ...

@@ -29,13 +29,14 @@ class CacheManager:
         return self.cache_dir / f"{safe_ticker}.parquet"
 
     def save_data(self, ticker: str, df: pd.DataFrame):
-        """Save DataFrame to Parquet."""
+        """Save DataFrame to Parquet with FileLock."""
         try:
             if df.empty:
                 logger.warning(f"Attempted to save empty dataframe for {ticker}")
                 return
 
             path = self._get_path(ticker)
+            lock_path = path.with_suffix('.lock')
             
             # Ensure standard index and cols
             df_save = df.copy()
@@ -53,9 +54,16 @@ class CacheManager:
                    df_save['date'] = pd.to_datetime(df_save['date'])
                    df_save.set_index('date', inplace=True)
             
-            # Write parquet (snappy compression is default and good)
-            df_save.to_parquet(path)
-            logger.info(f"Saved {ticker} to {path} (Rows: {len(df_save)})")
+            # Critical Fix: FileLock for Concurrency
+            try:
+                from filelock import FileLock
+                with FileLock(lock_path, timeout=10):
+                    df_save.to_parquet(path)
+                    logger.info(f"Saved {ticker} to {path} (Rows: {len(df_save)})")
+            except ImportError:
+                logger.warning("FileLock not installed, saving without lock (Unsafe in concurrency)")
+                df_save.to_parquet(path)
+                logger.info(f"Saved {ticker} to {path} (Rows: {len(df_save)})")
             
         except Exception as e:
             logger.error(f"Parquet Save Error ({ticker}): {e}")

@@ -1,0 +1,113 @@
+---
+name: webapp-testing
+description: >-
+  Toolkit for interacting with and testing local web applications using
+  Playwright. Supports verifying frontend functionality, debugging UI behavior,
+  capturing browser screenshots, and viewing browser logs.
+trigger: when_needed
+language: zh-TW
+adapted_from: openskills/webapp-testing
+version: 1.0.0-antigravity
+original_license: Complete terms in LICENSE.txt
+---
+# WEBAPP-TESTING 處理指南
+
+> **技能版本**: v1.0 (Antigravity 適配版)  
+> **原始來源**: openskills/webapp-testing  
+> **語言**: 繁體中文
+
+## 概述
+
+Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
+
+---
+
+
+# Web Application Testing
+
+To test local web applications, write native Python Playwright scripts.
+
+**Helper Scripts Available**:
+- `scripts/with_server.py` - Manages server lifecycle (supports multiple servers)
+
+**Always run scripts with `--help` first** to see usage. DO NOT read the source until you try running the script first and find that a customized solution is abslutely necessary. These scripts can be very large and thus pollute your context window. They exist to be called directly as black-box scripts rather than ingested into your context window.
+
+## 使用情境
+
+此技能適用於以下情況：
+- 用戶明確要求相關功能時
+- 任務需要專業領域知識時
+- 需要遵循特定工作流程時
+
+---
+
+## Decision Tree: Choosing Your Approach
+
+
+詳細內容請參閱：[example_2.txt](examples/example_2.txt)
+
+
+## Example: Using with_server.py
+
+To start a server, run `--help` first, then use the helper:
+
+**Single server:**
+```bash
+python scripts/with_server.py --server "npm run dev" --port 5173 -- python your_automation.py
+
+詳細內容請參閱：[example_3.txt](examples/example_3.txt)
+
+
+To create an automation script, include only Playwright logic (servers are managed automatically):
+
+詳細內容請參閱：[example_4.py](examples/example_4.py)
+
+
+## Reconnaissance-Then-Action Pattern
+
+1. **Inspect rendered DOM**:
+   ```python
+   page.screenshot(path='/tmp/inspect.png', full_page=True)
+   content = page.content()
+   page.locator('button').all()
+   ```
+
+2. **Identify selectors** from inspection results
+
+3. **Execute actions** using discovered selectors
+
+## Common Pitfall
+
+❌ **Don't** inspect the DOM before waiting for `networkidle` on dynamic apps
+✅ **Do** wait for `page.wait_for_load_state('networkidle')` before inspection
+
+## 最佳實踐
+
+- **Use bundled scripts as black boxes** - To accomplish a task, consider whether one of the scripts available in `scripts/` can help. These scripts handle common, complex workflows reliably without cluttering the context window. Use `--help` to see usage, then invoke directly. 
+- Use `sync_playwright()` for synchronous scripts
+- Always close the browser when done
+- Use descriptive selectors: `text=`, `role=`, CSS selectors, or IDs
+- Add appropriate waits: `page.wait_for_selector()` or `page.wait_for_timeout()`
+
+## Reference Files
+
+- **examples/** - 範例 showing common patterns:
+  - `element_discovery.py` - Discovering buttons, links, and inputs on a page
+  - `static_html_automation.py` - Using file:// URLs for local HTML
+  - `console_logging.py` - Capturing console logs during automation
+
+---
+
+## 專案整合
+
+此技能已適配 Antigravity 系統：
+
+- 遵循 `skills/_base/coding_style.md` 編碼規範
+- 與 `skills/_base/architecture.md` 架構模式一致
+- 符合 Constitution v3.1 語言規範 (繁體中文)
+
+### 相關技能
+
+可搭配以下技能使用：
+- `systematic-debugging` - 系統化除錯
+- `verification-before-completion` - 完成前驗證

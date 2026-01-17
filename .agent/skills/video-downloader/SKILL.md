@@ -1,0 +1,116 @@
+---
+name: youtube-downloader
+description: >-
+  Download YouTube videos with customizable quality and format options. Use this
+  skill when the user asks to download, save, or grab YouTube videos. Supports
+  various quality settings (best, 1080p, 720p, 480p, 360p), multiple formats
+  (mp4, webm, mkv), and audio-only downloads as MP3.
+trigger: when_needed
+language: zh-TW
+adapted_from: openskills/video-downloader
+version: 1.0.0-antigravity
+original_license: Unknown
+---
+# VIDEO-DOWNLOADER 處理指南
+
+> **技能版本**: v1.0 (Antigravity 適配版)  
+> **原始來源**: openskills/video-downloader  
+> **語言**: 繁體中文
+
+## 概述
+
+Download YouTube videos with customizable quality and format options. Use this skill when the user asks to download, save, or grab YouTube videos. Supports various quality settings (best, 1080p, 720p, 480p, 360p), multiple formats (mp4, webm, mkv), and audio-only downloads as MP3.
+
+---
+
+
+# YouTube Video Downloader
+
+Download YouTube videos with full control over quality and format settings.
+
+## 使用情境
+
+此技能適用於以下情況：
+- 用戶明確要求相關功能時
+- 任務需要專業領域知識時
+- 需要遵循特定工作流程時
+
+---
+
+## 快速開始
+
+The simplest way to download a video:
+
+```bash
+python scripts/download_video.py "https://www.youtube.com/watch?v=VIDEO_ID"
+
+詳細內容請參閱：[example_1.txt](examples/example_1.txt)
+
+
+### Format Options
+
+Use `-f` or `--format` to specify output format (video downloads only):
+
+- `mp4` (default): Most compatible
+- `webm`: Modern format
+- `mkv`: Matroska container
+
+Example:
+```bash
+python scripts/download_video.py "URL" -f webm
+
+詳細內容請參閱：[example_2.txt](examples/example_2.txt)
+
+
+### Custom Output Directory
+
+Use `-o` or `--output` to specify a different output directory:
+
+```bash
+python scripts/download_video.py "URL" -o /path/to/directory
+
+詳細內容請參閱：[example_3.txt](examples/example_3.txt)
+
+
+2. Download audio only as MP3:
+```bash
+python scripts/download_video.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -a
+```
+
+3. Download in 720p as WebM to custom directory:
+```bash
+python scripts/download_video.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -q 720p -f webm -o /custom/path
+```
+
+## How It Works
+
+The skill uses `yt-dlp`, a robust YouTube downloader that:
+- Automatically installs itself if not present
+- Fetches video information before downloading
+- Selects the best available streams matching your criteria
+- Merges video and audio streams when needed
+- Supports a wide range of YouTube video formats
+
+## Important Notes
+
+- Downloads are saved to `/mnt/user-data/outputs/` by default
+- Video filename is automatically generated from the video title
+- The script handles installation of yt-dlp automatically
+- Only single videos are downloaded (playlists are skipped by default)
+- Higher quality videos may take longer to download and use more disk space
+
+---
+
+## 專案整合
+
+此技能已適配 Antigravity 系統：
+
+- 遵循 `skills/_base/coding_style.md` 編碼規範
+- 與 `skills/_base/architecture.md` 架構模式一致
+- 符合 Constitution v3.1 語言規範 (繁體中文)
+
+### 相關技能
+
+可搭配以下技能使用：
+- `systematic-debugging` - 系統化除錯
+- `verification-before-completion` - 完成前驗證

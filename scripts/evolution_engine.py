@@ -7,8 +7,9 @@ from typing import Literal
 mcp = FastMCP("Vibe Evolution Engine")
 
 # 定義知識庫路徑
-SKILLS_DIR = "skills"
-LOG_FILE = "skills/evolution_history.log"
+# 定義知識庫路徑
+SKILLS_DIR = ".agent/skills"
+LOG_FILE = ".agent/skills/evolution_history.log"
 
 @mcp.tool
 def search_knowledge(query: str, ctx: Context = None) -> str:
@@ -16,19 +17,21 @@ def search_knowledge(query: str, ctx: Context = None) -> str:
     搜尋現有的開發模式和最佳實踐。
     在寫代碼前必須調用此工具。
     """
-    results =
+    results = []
     if ctx: ctx.info(f"Searching skills for: {query}")
     
     for root, _, files in os.walk(SKILLS_DIR):
         for file in files:
-            if file.endswith(".md"):
+            if file == "SKILL.md":
                 try:
                     path = os.path.join(root, file)
                     with open(path, "r", encoding="utf-8") as f:
                         content = f.read()
                         # 簡單的關鍵字匹配，生產環境可換成 Vector Search
                         if query.lower() in content.lower():
-                            results.append(f"### Pattern: {file}\n{content[:800]}...\n(Source: {path})")
+                            # Get skill name from directory name
+                            skill_name = os.path.basename(os.path.dirname(path))
+                            results.append(f"### Skill: {skill_name}\n{content[:800]}...\n(Source: {path})")
                 except Exception:
                     continue
     
@@ -49,16 +52,20 @@ def evolve_skill(
     """
     # 1. 安全檢查：防止路徑遍歷
     safe_title = "".join([c for c in title if c.isalnum() or c in "-_"]).lower()
-    target_dir = os.path.join(SKILLS_DIR, category, "community")
+    
+    # Structure: .agent/skills/community/<skill_name>/SKILL.md
+    target_dir = os.path.join(SKILLS_DIR, "community", safe_title)
     os.makedirs(target_dir, exist_ok=True)
     
-    file_path = os.path.join(target_dir, f"{safe_title}.md")
+    file_path = os.path.join(target_dir, "SKILL.md")
     
     # 2. 寫入知識文件
     markdown_content = f"""---
-title: {title}
+name: {safe_title}
+category: {category}
 created_at: {time.strftime('%Y-%m-%d %H:%M:%S')}
 status: experimental
+trigger: manual
 ---
 
 # {title}
@@ -71,7 +78,7 @@ status: experimental
             
         # 3. 寫入進化日誌
         with open(LOG_FILE, "a", encoding="utf-8") as f:
-            f.write(f" EVOLVED: {category}/{safe_title}\n")
+            f.write(f" EVOLVED: community/{safe_title}\n")
             
         if ctx: ctx.info(f"Knowledge evolved: {file_path}")
         return f"Successfully crystallized knowledge into {file_path}"

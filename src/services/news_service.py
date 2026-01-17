@@ -117,17 +117,21 @@ class NewsService:
         channel = root.find('channel')
         
         news = []
-        for item in channel.findall('item')[:count]:
-            title = item.find('title')
-            pub_date = item.find('pubDate')
-            link = item.find('link')
-            
-            news.append(NewsItem(
-                title=title.text if title is not None else "",
-                source="Yahoo 財經",
-                time=pub_date.text[:16] if pub_date is not None else datetime.now().strftime("%Y-%m-%d"),
-                url=link.text if link is not None else None
-            ))
+        try:
+            for item in channel.findall('item')[:count]:
+                title = item.find('title')
+                pub_date = item.find('pubDate')
+                link = item.find('link')
+                
+                news.append(NewsItem(
+                    title=title.text if title is not None else "",
+                    source="Yahoo 財經",
+                    time=pub_date.text[:16] if pub_date is not None else datetime.now().strftime("%Y-%m-%d"),
+                    url=link.text if link is not None else None
+                ))
+        except Exception as e:
+            logger.warning(f"Yahoo RSS Parsing Error: {e}")
+            return []
         
         return news
     

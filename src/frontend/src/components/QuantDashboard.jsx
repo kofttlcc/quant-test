@@ -446,7 +446,7 @@ export default function QuantDashboard({ onNavigate }) {
                     const klineData = sampledData.map((d) => {
                         const trade = tradesMap.get(d.time);
                         return {
-                            time: d.time.substring(5), // "MM-DD" 格式
+                            time: d.time, // "YYYY-MM-DD" 格式
                             open: d.open,
                             high: d.high,
                             low: d.low,
@@ -741,6 +741,16 @@ export default function QuantDashboard({ onNavigate }) {
                 </div>
             )}
 
+            {/* Sprint 1: CAPM Analysis Panel */}
+            {backtestData?.metrics?.Alpha !== undefined && (
+                <div className="ai-insight-bar" style={{ marginTop: '10px', background: 'linear-gradient(90deg, #0f172a 0%, #1e293b 100%)', border: '1px solid #334155' }}>
+                    <div className="ai-insight-label">
+                        <Activity size={16} color="#3b82f6" />
+                        <span>CAPM 診斷: Alpha = {(backtestData.metrics.Alpha * 100).toFixed(4)}% | Beta = {backtestData.metrics.Beta.toFixed(2)} | R² = {backtestData.metrics.R_Squared.toFixed(2)}</span>
+                    </div>
+                </div>
+            )}
+
             {/* 核心指標 - 按 Demo 1:1 還原 */}
             <div className="metrics-row demo-style">
                 <AISignalWidget ticker={ticker} />
@@ -769,18 +779,17 @@ export default function QuantDashboard({ onNavigate }) {
                     <div className="metric-value">{(backtestData?.metrics?.Profit_Factor || 1.65).toFixed(2)}</div>
                     <div className="metric-sub">↗ 穩健</div>
                 </div>
-                {/* Sprint 1: Sortino Ratio 卡片 */}
                 <div className="metric-card">
                     <div className="metric-header">
                         <span className="metric-title">索提諾比率 (SORTINO)</span>
-                        <ShieldAlert size={16} />
+                        <Activity size={16} />
                     </div>
-                    <div className="metric-value">{(backtestData?.metrics?.Sortino_Ratio || 3.12).toFixed(2)}</div>
-                    <div className="metric-sub">↗ 僅懲罰下行風險</div>
+                    <div className="metric-value">{(backtestData?.metrics?.Sortino_Ratio || 0).toFixed(2)}</div>
+                    <div className="metric-sub">下行風險調整後收益</div>
                 </div>
             </div>
 
-            {/* Sprint 1: VaR/CVaR 風險指標卡片 */}
+            {/* Sprint 1: VaR/CVaR Risk Metrics Row */}
             <div className="metrics-row demo-style" style={{ marginTop: '12px' }}>
                 <div className="metric-card" style={{ borderLeft: '3px solid #ef4444' }}>
                     <div className="metric-header">
@@ -811,7 +820,7 @@ export default function QuantDashboard({ onNavigate }) {
                         <span className="metric-title">總佣金成本</span>
                         <DollarSign size={16} />
                     </div>
-                    <div className="metric-value">${(backtestData?.metrics?.Total_Commission || 156.80).toFixed(2)}</div>
+                    <div className="metric-value">${(backtestData?.metrics?.Total_Commission || 0).toFixed(2)}</div>
                     <div className="metric-sub">交易摩擦成本</div>
                 </div>
             </div>

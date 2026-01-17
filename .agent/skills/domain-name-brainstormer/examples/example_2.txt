@@ -1,0 +1,6 @@
+
+## Example
+
+**User**: "I'm building a tool for developers to share code snippets. Suggest creative domain names."
+
+**Output**:

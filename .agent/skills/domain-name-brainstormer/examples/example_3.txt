@@ -1,0 +1,29 @@
+
+**Inspired by:** Ben Aiad's use case from Lenny's Newsletter
+
+## Domain Naming Tips
+
+### What Makes a Good Domain
+
+✓ **Short**: Under 15 characters ideal
+✓ **Memorable**: Easy to recall and spell
+✓ **Pronounceable**: Can be said in conversation
+✓ **Descriptive**: Hints at what you do
+✓ **Brandable**: Unique enough to stand out
+✓ **No hyphens**: Easier to share verbally
+
+### TLD Guide
+
+- **.com**: Universal, trusted, great for businesses
+- **.io**: Tech startups, developer tools
+- **.dev**: Developer-focused products
+- **.ai**: AI/ML products
+- **.app**: Mobile or web applications
+- **.co**: Alternative to .com
+- **.xyz**: Modern, creative projects
+- **.design**: Creative/design agencies
+- **.tech**: Technology companies
+
+## Advanced Features
+
+### Check Similar Variations

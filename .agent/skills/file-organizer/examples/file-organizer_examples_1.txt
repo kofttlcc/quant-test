@@ -1,0 +1,11 @@
+# Found 23 Sets of Duplicates (156 MB total)
+
+## Duplicate Set 1: "proposal.pdf"
+- `/Documents/proposal.pdf` (2.3 MB, modified: 2024-03-15)
+- `/Documents/old/proposal.pdf` (2.3 MB, modified: 2024-03-15)
+- `/Desktop/proposal.pdf` (2.3 MB, modified: 2024-03-10)
+
+**Recommendation**: Keep `/Documents/proposal.pdf` (most recent in correct location)
+Delete the other 2 copies?
+
+[Continue for all duplicates...]

@@ -1,0 +1,7 @@
+Please tailor my resume for this position:
+
+Job Description:
+[paste job description]
+
+My Current Resume:
+[paste resume content]

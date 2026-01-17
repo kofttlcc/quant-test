@@ -1,0 +1,6 @@
+Analyze all transcripts in this folder and:
+1. Identify when I interrupted others
+2. Calculate my speaking ratio
+3. Find moments I avoided giving direct feedback
+4. Track my use of filler words
+5. Show examples of good active listening

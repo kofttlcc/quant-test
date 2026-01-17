@@ -1,0 +1,16 @@
+   
+   ## Changes I'll Make
+   
+   1. **Create new folders**: [list]
+   2. **Move files**:
+      - X PDFs → Work/Documents/
+      - Y images → Personal/Photos/
+      - Z old files → Archive/
+   3. **Rename files**: [any renaming patterns]
+   4. **Delete**: [duplicates or trash files]
+   
+   ## Files Needing Your Decision
+   
+   - [List any files you're unsure about]
+   
+   Ready to proceed? (yes/no/modify)

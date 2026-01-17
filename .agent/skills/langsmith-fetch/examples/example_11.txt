@@ -1,0 +1,9 @@
+
+**Analyze and report:**
+1. 📊 Total errors found
+2. ❌ Error types and frequency
+3. 🕐 When errors occurred
+4. 🎯 Which agents/tools failed
+5. 💡 Common patterns
+
+**Example response format:**

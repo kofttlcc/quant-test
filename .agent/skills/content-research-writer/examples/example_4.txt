@@ -1,0 +1,6 @@
+
+Open Claude Code from this directory and start writing.
+
+### Basic Workflow
+
+1. **Start with an outline**:

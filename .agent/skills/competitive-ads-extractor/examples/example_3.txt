@@ -1,0 +1,6 @@
+
+## Example
+
+**User**: "Extract ads from Notion on Facebook Ad Library and tell me what messaging is working for them."
+
+**Process**:

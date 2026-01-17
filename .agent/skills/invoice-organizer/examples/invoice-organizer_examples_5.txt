@@ -1,0 +1,5 @@
+Invoices/
+├── Adobe/
+├── Amazon/
+├── Google/
+└── Microsoft/

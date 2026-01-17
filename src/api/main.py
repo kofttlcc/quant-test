@@ -24,6 +24,7 @@ try:
     from src.backend.storage import ResultStorage
     from src.backend.portfolio import Portfolio
     from src.backend.paper_trade import PaperTradingEngine
+    from src.models.alpha_beta import AlphaBetaAnalyzer
     import yfinance as yf
 except ImportError as e:
     REQUIRED_MODULES_LOADED = False
@@ -675,6 +676,58 @@ def arena_adversarial():
         logger.error(f"Adversarial Arena Error: {e}")
         return jsonify({"error": str(e)}), 500
 
+# Sprint 1 Task 3: CAPM Alpha/Beta 分析端點
+@app.route('/api/v1/capm/analyze', methods=['GET'])
+def capm_analyze():
+    """
+    計算 CAPM Alpha/Beta。
+    
+    Query Params:
+        ticker: 資產代碼 (默認 AAPL)
+        benchmark: 基準指數 (默認 SPY)
+    """
+    if not check_api_key():
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    ticker = request.args.get('ticker', 'AAPL')
+    benchmark = request.args.get('benchmark', 'SPY')
+    
+    try:
+        from src.models.alpha_beta import AlphaBetaAnalyzer
+        from src.data_loader.downloader import fetch_data
+        
+        # 1. 獲取資產和基準數據
+        asset_df = fetch_data(ticker, start_date="2023-01-01")
+        market_df = fetch_data(benchmark, start_date="2023-01-01")
+        
+        if asset_df.empty or market_df.empty:
+            return jsonify({"error": f"無法獲取 {ticker} 或 {benchmark} 數據"}), 400
+        
+        # 2. 計算收益率
+        asset_ret = asset_df['Close'].pct_change().dropna()
+        market_ret = market_df['Close'].pct_change().dropna()
+        
+        # 3. 執行 CAPM 分析
+        result = AlphaBetaAnalyzer.calculate_capm(asset_ret, market_ret, rf=0.0)
+        
+        if not result:
+            return jsonify({"error": "CAPM 分析失敗，數據不足"}), 400
+        
+        return jsonify({
+            "ticker": ticker,
+            "benchmark": benchmark,
+            "alpha": round(result.get('alpha', 0) * 252, 6),  # 年化 Alpha
+            "beta": round(result.get('beta', 1), 4),
+            "r_squared": round(result.get('r_squared', 0), 4),
+            "alpha_pvalue": round(result.get('alpha_pvalue', 1), 4),
+            "beta_pvalue": round(result.get('beta_pvalue', 1), 4),
+            "n_obs": result.get('n_obs', 0)
+        })
+        
+    except Exception as e:
+        logger.error(f"CAPM Analysis Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/v1/arena/battle', methods=['GET'])
 def arena_battle():
     """
@@ -701,17 +754,18 @@ def arena_battle():
         # Save Results (Phase 9)
         current_date = pd.Timestamp.now().strftime("%Y-%m-%d")
         for res in results:
-            storage.save_run(
-                ticker=ticker,
-                strategy=res['Strategy'],
-                start_date="2024-01-01", 
-                end_date=current_date,
-                metrics={
-                    "Total_Return": res['Total Return'],
-                    "Sharpe_Ratio": res['Sharpe'],
-                    "Max_Drawdown": res['Max DD']
-                }
-            )
+            if storage:
+                storage.save_run(
+                    ticker=ticker,
+                    strategy=res['Strategy'],
+                    start_date="2024-01-01", 
+                    end_date=current_date,
+                    metrics={
+                        "Total_Return": res['Total Return'],
+                        "Sharpe_Ratio": res['Sharpe'],
+                        "Max_Drawdown": res['Max DD']
+                    }
+                )
 
         return jsonify({
             "ticker": ticker,
@@ -824,8 +878,9 @@ def run_backtest():
     ticker = request.args.get('ticker', 'BTC-USD')
     strategy_type = request.args.get('strategy', 'momentum')
     version_str = request.args.get('version', None) # 讀取版本參數
+    force_refresh = request.args.get('force_refresh', 'false').lower() == 'true'
     
-    logger.info(f"Running backtest for {ticker} with strategy={strategy_type}, version={version_str}")
+    logger.info(f"Running backtest for {ticker} with strategy={strategy_type}, version={version_str}, refresh={force_refresh}")
     try:
         # 1. Fetch Data (Real)
         start_date = "2024-01-01" # Extended for Phase 6
@@ -834,7 +889,7 @@ def run_backtest():
         if 'src.backend.backtest_engine' not in sys.modules and 'Backtester' not in globals():
              return jsonify({"error": "Backtester module not loaded"}), 500
              
-        df = fetch_data(ticker, start_date=start_date)
+        df = fetch_data(ticker, start_date=start_date, force_refresh=force_refresh)
         if df.empty:
              return jsonify({"error": f"No data for {ticker}"}), 404
              
@@ -981,13 +1036,14 @@ def run_backtest():
         result = bt.run_backtest(df, strategy)
         
         # 3. Save Result (Phase 6 P2)
-        storage.save_run(
-            ticker=ticker,
-            strategy=strategy_name,
-            start_date=start_date,
-            end_date=pd.Timestamp.now().strftime("%Y-%m-%d"),
-            metrics=result['metrics']
-        )
+        if storage:
+            storage.save_run(
+                ticker=ticker,
+                strategy=strategy_name,
+                start_date=start_date,
+                end_date=pd.Timestamp.now().strftime("%Y-%m-%d"),
+                metrics=result['metrics']
+            )
         
         # Prepare OHLCV Data for Chart
         # Format: [{time: '2023-01-01', open: 100, high: 105, low: 99, close: 102}, ...]
@@ -1022,6 +1078,30 @@ def run_backtest():
                 "low": row['Low'],
                 "close": row['Close']
             })
+
+        # ------------------------------------------------------------------
+        # Sprint 1: Performance Diagnosis (CAPM Injection)
+        # ------------------------------------------------------------------
+        try:
+            if 'daily_returns' in result and len(result['daily_returns']) > 20:
+                # 1. Fetch Market Benchmark (SPY)
+                spy_df = fetch_data('SPY', start_date=start_date)
+                
+                if not spy_df.empty:
+                    # 2. Prepare Series
+                    asset_ret = pd.Series(result['daily_returns'], index=pd.to_datetime(result['dates']))
+                    market_ret = spy_df['Close'].pct_change().dropna()
+                    
+                    # 3. Calculate CAPM
+                    capm_res = AlphaBetaAnalyzer.calculate_capm(asset_ret, market_ret)
+                    
+                    if capm_res:
+                        result['metrics']['Alpha'] = capm_res['alpha']
+                        result['metrics']['Beta'] = capm_res['beta']
+                        result['metrics']['R_Squared'] = capm_res['r_squared']
+                        logger.info(f"CAPM Calculated: Alpha={capm_res['alpha']:.4f}, Beta={capm_res['beta']:.2f}")
+        except Exception as e:
+            logger.error(f"CAPM Calculation Failed: {e}")
 
         response_data = {
             "ticker": ticker,

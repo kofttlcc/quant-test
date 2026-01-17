@@ -1,0 +1,10 @@
+Found 89 files all named "invoice*.pdf"
+
+Reading each file to extract real information...
+
+Renamed examples:
+- invoice.pdf → 2024-03-15 Shopify - Invoice - Monthly Subscription.pdf
+- invoice(1).pdf → 2024-03-14 Google - Invoice - Workspace.pdf
+- invoice(2).pdf → 2024-03-10 Netlify - Invoice - Pro Plan.pdf
+
+All files renamed and organized by vendor.

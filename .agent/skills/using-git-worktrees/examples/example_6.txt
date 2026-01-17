@@ -1,0 +1,6 @@
+
+**If tests fail:** Report failures, ask whether to proceed or investigate.
+
+**If tests pass:** Report ready.
+
+### 5. Report Location

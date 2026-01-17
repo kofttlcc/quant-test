@@ -1,0 +1,5 @@
+Organize these invoices:
+1. Extract date, vendor, and description from each file
+2. Rename to standard format
+3. Sort into folders by expense category (Software, Office, Travel, etc.)
+4. Create a CSV spreadsheet with all invoice details for my accountant

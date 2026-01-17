@@ -1,0 +1,17 @@
+
+2. Check:
+   - Were memory tools called?
+   - Did recall return results?
+   - Were memories actually stored?
+   - Are retrieved memories being used?
+
+---
+
+### Use Case 4: "Performance Issues"
+
+**User says:** "Agent is too slow"
+
+**Steps:**
+1. Export with metadata:
+   ```bash
+   langsmith-fetch traces ./perf-analysis --last-n-minutes 30 --limit 50 --include-metadata

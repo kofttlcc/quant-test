@@ -1,0 +1,19 @@
+
+This creates a fully configured project with:
+- ✅ React + TypeScript (via Vite)
+- ✅ Tailwind CSS 3.4.1 with shadcn/ui theming system
+- ✅ Path aliases (`@/`) configured
+- ✅ 40+ shadcn/ui components pre-installed
+- ✅ All Radix UI dependencies included
+- ✅ Parcel configured for bundling (via .parcelrc)
+- ✅ Node 18+ compatibility (auto-detects and pins Vite version)
+
+### Step 2: Develop Your Artifact
+
+To build the artifact, edit the generated files. See **Common Development Tasks** below for guidance.
+
+### Step 3: Bundle to Single HTML File
+
+To bundle the React app into a single HTML artifact:
+```bash
+bash scripts/bundle-artifact.sh

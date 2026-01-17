@@ -1,0 +1,10 @@
+
+**Analyze JSON and report:**
+1. 🎯 What the agent was trying to do
+2. 🛠️ Which tools were called (in order)
+3. ✅ Tool results (success/failure)
+4. ❌ Error messages (if any)
+5. 💡 Root cause analysis
+6. 🔧 Suggested fix
+
+**Example response format:**

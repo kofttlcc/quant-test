@@ -1,0 +1,42 @@
+{
+    "mcpServers": {
+        "alphavantage": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-alphavantage",
+                "--categories",
+                "core_stock_apis",
+                "--categories",
+                "fundamental_data",
+                "--categories",
+                "economic_indicators"
+            ],
+            "env": {
+                "ALPHAVANTAGE_API_KEY": "YOUR_API_KEY_HERE"
+            }
+        },
+        "git-gateway": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@mseep/git-mcp-server"
+            ]
+        },
+        "evolution-engine": {
+            "command": "python3",
+            "args": [
+                "/Users/jerrylee/coding/scripts/evolution_engine.py"
+            ]
+        }
+    },
+    "context": {
+        "builder_brain": {
+            "systemInstruction": "Initialize as the Builder (Team A). Your Standard Operating Procedure (SOP) is defined in `.agent/workflows/vibe-build.md`. You MUST read this file first and strictly follow its protocols for every session.",
+            "historyFile": "artifacts/builder_history.json"
+        },
+        "auditor_brain": {
+            "systemInstruction": "Initialize as the Auditor (Team B). Your Standard Operating Procedure (SOP) is defined in `.agent/workflows/vibe-audit.md`. You MUST read this file first and strictly follow its protocols for every session.",
+            "historyFile": "artifacts/auditor_history.json"
+        }
+    }
+}

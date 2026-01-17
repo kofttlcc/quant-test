@@ -1,0 +1,13 @@
+✅ Session exported successfully!
+
+Location: langsmith-debug/session-20251224-143022/
+- Traces: 42 files
+- Threads: 8 files
+
+You can now:
+1. Review individual trace files
+2. Share folder with team
+3. Analyze with external tools
+4. Archive for future reference
+
+Session size: 2.3 MB

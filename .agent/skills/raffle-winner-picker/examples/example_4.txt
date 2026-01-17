@@ -1,0 +1,12 @@
+
+**Inspired by:** Lenny's use case - picking a Sora 2 giveaway winner from his subscriber Slack community
+
+## Features
+
+### Fair Selection
+- Uses secure random number generation
+- No bias or patterns
+- Transparent process
+- Repeatable with seed (for verification)
+
+### Exclusions

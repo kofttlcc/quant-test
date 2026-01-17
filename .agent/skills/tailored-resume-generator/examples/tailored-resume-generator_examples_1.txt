@@ -1,0 +1,9 @@
+I'm applying for this job:
+
+[paste job description]
+
+Here's my background:
+- 5 years as software engineer at TechCorp
+- Led team of 3 developers on mobile app project
+- Expert in Python, JavaScript, React
+- Computer Science degree from State University

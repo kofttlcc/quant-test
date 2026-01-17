@@ -1,0 +1,10 @@
+      # Template slides to use (0-based indexing)
+      # WARNING: Verify indices are within range! Template with 73 slides has indices 0-72
+      # Mapping: slide numbers from outline -> template slide indices
+      template_mapping = [
+          0,   # Use slide 0 (Title/Cover)
+          34,  # Use slide 34 (B1: Title and body)
+          34,  # Use slide 34 again (duplicate for second B1)
+          50,  # Use slide 50 (E1: Quote)
+          54,  # Use slide 54 (F2: Closing + Text)
+      ]

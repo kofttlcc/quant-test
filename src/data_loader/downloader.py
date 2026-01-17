@@ -40,6 +40,8 @@ def fetch_data(ticker: str, start_date: str, interval: str = "1d", force_refresh
             # Ideally cache is already clean, but let's be safe if it was old data.
             # Only validate, don't re-clean heavy if it looks okay.
             return df_cache
+    else:
+        logger.info(f"Force Refresh: Bypassing cache for {ticker}...")
     
     # 2. Download from yfinance (with Retry)
     logger.info(f"Fetching data for {ticker} from {start_date}...")
