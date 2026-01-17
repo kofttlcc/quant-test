@@ -1,68 +1,77 @@
-# AI 量化交易系統 (AI Quantitative Trading System)
+# Antigravity model System
 
-本項目是一個基於 Python 的模組化量化交易系統，集成了現代 **Machine Learning (LightGBM, LSTM)** 與經典 **Financial Engineering (StatArb, Pricing)** 能力。
+本專案採用先進的 **AI 雙腦協作架構 (Antigravity Dual-Brain Architecture)** 進行開發。此架構通過嚴格區分「生成」與「審計」職責，確保代碼的高速迭代與安全品質。
 
-經過 Phase 1-4 的深度迭代，系統已具備工業級的數據治理與風控能力。
+## 核心機制：雙腦協議 (The Dual-Mind Protocol)
 
-## ✨ 核心功能 (Features)
+本系統將開發過程分為兩個獨立的角色，彼此透過文件系統進行非同步協作：
 
-### 1. 數據治理 (Data Governance)
-- **Robust Cleaning**: 採用 `MAD` (Median Absolute Deviation) 進行魯棒異常值檢測，摒棄傳統標準差法。
-- **Smart Interpolation**: 使用 **Brownian Bridge** 算法修復缺失數據，保留市場波動特性。
+| 角色 | **The Builder (建造者)** | **The Auditor (審計者)** |
+| :--- | :--- | :--- |
+| **職責** | 快速生成代碼、驗證創意、實現功能 | 審查邏輯、驗證安全性、檢查規範 |
+| **特點** | **速度優先 (Speed)**。允許編寫「髒」代碼以快速驗證。 | **安全優先 (Safety)**。「進化」系統，將錯誤轉化為技能規則。 |
+| **權限** | 僅在 `feat/` 分支工作，**禁止**推送到主分支。 | 唯一擁有合併代碼到 `main` 分支權限的角色。 |
 
-### 2. 人工智能 (AI Core)
-- **Model Arena**: 支援 LightGBM、MLP、LSTM 等多種模型架構。
-- **Purged CV**: 實作 `CombinatorialPurgedKFold`，嚴格防止時間序列數據洩露。
-- **Feature Importance**: 自動計算並保存特徵重要性，提升模型可解釋性。
 
-### 3. 金融工程 (Financial Engineering)
-- **Statistical Arbitrage**: 基於 OU Process (Ornstein-Uhlenbeck) 的配對交易引擎，實時估計 **Half-Life** (半衰期)。
-- **Derivatives Pricing**: 內置 Black-Scholes 期權定價模型與 Greeks 計算。
-- **Risk Metrics**: 支援 VaR (Value at Risk), CVaR, Sortino Ratio 等機構級風控指標。
+---
 
-### 4. 回測引擎 (Backtesting)
-- **Realistic Simulation**: 考慮雙向佣金 (Commission)、滑點與市場衝擊。
-- **Comprehensive Reporting**: 提供詳細的 PnL 歸因分析與可視化圖表。
+## 角色責任與知識庫權限 (Role Responsibilities & Knowledge Governance)
 
-## 🏗️ 系統架構 (Architecture)
+本系統實施嚴格的 **讀寫分離 (Read/Write Separation)** 機制，以確保系統長期運行的穩定性與自我進化能力。
 
-```mermaid
-graph TD
-    Data[Data Loader] --> Governance[Data Governance]
-    Governance --> FeatureEng[Feature Engineering]
-    
-    FeatureEng --> AI_Arena[AI Arena (ML Models)]
-    FeatureEng --> StatArb[StatArb Engine]
-    
-    AI_Arena --> Signals[Signal Generation]
-    StatArb --> Signals
-    
-    Signals --> Portfolio[Portfolio Optimizer]
-    Portfolio --> Execution[Execution / Backtest]
-    
-    subgraph "Core Modules"
-        Governance
-        AI_Arena
-        StatArb
-    end
-```
+### 1. 權限矩陣 (Permission Matrix)
 
-## 🚀 快速開始 (Quick Start)
+| 資源領域 (Domain) | **The Builder (Gemini)** | **The Auditor (Claude)** |
+| :--- | :--- | :--- |
+| **代碼庫 (Codebase)** | **Write (Draft)**<br>僅限 `feat/` 分支，允許快速與實驗性代碼。 | **Merge (Master)**<br>唯一擁有合併至 `main` 的權限，需確保代碼乾淨且通過測試。 |
+| **知識庫 (Knowledge Base)**<br>(`.agent/skills/`) | **Read-Only**<br>必須讀取並遵循現有技能與規範。 | **Write (Evolve)**<br>唯一有權調用 `evolution_engine` 將發現的模式固化為新技能。 |
+| **記憶文件 (Memory)**<br>(`rules/`, `roles/`) | **Read-Only**<br>依據角色文檔扮演特定 Persona。 | **Curate**<br>負責維護與更新系統憲法與角色定義。 |
 
-詳細的使用指南請參考 [USAGE.md](USAGE.md)。
+### 2. 雙腦協作循環 (The Collaboration Loop)
 
-### 前置要求
-- Python 3.9+
-- Redis (用於緩存與消息隊列)
+1.  **Builder 開發**:
+    *   讀取現有知識庫 (`skills/`) 獲取最佳實踐。
+    *   在 `feat/` 分支上快速實現功能。
+    *   提交 `handoff_notes.md` 請求審計。
+2.  **Auditor 審計**:
+    *   審查代碼邏輯與安全性。
+    *   **進化判斷 (Evolution Check)**:
+        *   若發現 Builder 犯了重複性錯誤 -> 調用 `evolution_engine` 寫入新規則，防止再犯。
+        *   若發現通用優秀模式 -> 固化為新 Skill。
+    *   批准合併或駁回重修。
 
-### 安裝
-```bash
-git clone <repo_url>
-cd coding
-pip install -r requirements.txt
-```
 
-### 運行測試
-```bash
-pytest tests/
-```
+## 運行模式
+
+本專案支持兩種雙腦運作模式，以適應不同的資源與環境需求。
+
+### 1. 雙腦雙模型 (Dual-Brain Dual-Model)
+
+這是 Vibe Coding 的標準型態，利用不同模型的特性達到最佳效果。
+
+*   **機制**:
+    *   **Builder**: 由 **Gemini (如 1.5 Pro / Flash)** 擔任。擅長處理超長上下文，快速讀取大量文檔與代碼庫進行規劃與實作。
+    *   **Auditor**: 由 **Claude (如 3.5 Sonnet)** 擔任。擅長邏輯推理、細節捕捉與安全審計，把控代碼品質的最後一道防線。
+    *   **物理隔離**: 使用兩個完全不同的模型 API，天然具備思維隔離，避免模型對自己的錯誤產生「盲視」。
+*   **優勢**: 取各家模型之長，互補性強，審計效果最佳。
+*   **使用方法**:
+    *   依照 `.agent/rules/constitution.md` 進行角色扮演。
+    *   互動命令：
+        *   `/vibe-build`: 喚起 Builder 進行開發。
+        *   `/vibe-audit`: 喚起 Auditor 進行審查。
+
+### 2. 單模型雙腦 (Single-Model Dual-Brain)
+
+這是在資源受限、成本考量或單一模型環境下的變通方案，通過技術手段模擬雙腦互搏。
+
+*   **機制**:
+    *   **模型**: 統一使用 **Gemini 3 Pro** (或其他具備 Session 功能的強模型)。
+    *   **邏輯隔離**: 利用 **Context (Session)** 機制區分 `builder_session` 與 `auditor_session`。
+        *   雖然背後是同一個大腦，但擁有兩套獨立的短期記憶 (Context)，避免 Builder 的開發思路污染 Auditor 的審查判斷，實現「左手畫圓，右手畫方」。
+*   **優勢**: 成本低（只需一份模型訂閱）、部署簡單、回應速度通常較快。
+*   **使用方法**:
+    1.  在專案對話模式下執行/vibe-auto-loop
+    2.  腳本會自動監控 `artifacts/` 目錄的文件交互（如 `handoff_notes.md` 與 `audit_approval.md`），在 Builder 和 Auditor 角色間自動切換 Session。
+
+---
+

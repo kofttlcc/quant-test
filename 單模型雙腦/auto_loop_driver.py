@@ -4,6 +4,7 @@ import time
 import json
 import subprocess
 import sys
+import shutil
 from datetime import datetime
 
 # ==========================================
@@ -11,18 +12,23 @@ from datetime import datetime
 # ==========================================
 MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-3-pro")
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 路徑設定
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__)) # coding/單模型雙腦/
+BASE_DIR = os.path.dirname(CURRENT_DIR) # coding/
 ARTIFACTS_DIR = os.path.join(BASE_DIR, "artifacts")
 STATE_FILE = os.path.join(ARTIFACTS_DIR, "dual_brain_state.json")
+
+# Context 文件源 (模板)
+CTX_SRC_BUILDER = os.path.join(CURRENT_DIR, "contexts", "builder.md")
+CTX_SRC_AUDITOR = os.path.join(CURRENT_DIR, "contexts", "auditor.md")
+
+# 目標 Context 文件 (gemini-cli 讀取的默認文件)
+GEMINI_CONTEXT_FILE = os.path.join(BASE_DIR, "GEMINI.md")
 
 # 文件標誌
 FILE_BUILDER_HANDOFF = "handoff_notes.md"
 FILE_AUDITOR_REJECT = "auditor_handoff.md"
 FILE_AUDITOR_APPROVE_PREFIX = "audit_approval_"
-
-# CLI 上下文
-CTX_BUILDER = "builder_brain"
-CTX_AUDITOR = "auditor_brain"
 
 # ==========================================
 # 工具函數 (Utils)
@@ -53,18 +59,37 @@ def save_state(state):
     with open(STATE_FILE, 'w') as f:
         json.dump(state, f, indent=2)
 
-def run_gemini_cli(prompt, context):
+def swap_context(role):
+    """
+    將對應角色的 Context 文件複製為 GEMINI.md
+    """
+    src = CTX_SRC_BUILDER if role == "builder" else CTX_SRC_AUDITOR
+    try:
+        shutil.copy(src, GEMINI_CONTEXT_FILE)
+        log("SYSTEM", f"Swapped context to {role.upper()} (GEMINI.md updated)")
+        return True
+    except FileNotFoundError:
+        log("ERROR", f"Context file not found: {src}")
+        return False
+    except Exception as e:
+        log("ERROR", f"Failed to swap context: {e}")
+        return False
+
+def run_gemini_cli(prompt):
+    """
+    調用 gemini-cli 執行指令
+    注意：不再傳遞 --context 參數，而是依賴 swap_context 準備好的 GEMINI.md
+    """
     cmd = [
         "gemini",
         "-m", MODEL_NAME,
-        "--context", context,
         "-p", prompt
     ]
     
     log("SYSTEM", f"Executing: {' '.join(cmd)}")
     try:
-        # 使用 subprocess 調用，將輸出直接流式傳輸到終端
-        result = subprocess.run(cmd, text=True, capture_output=False)
+        # 使用 subprocess 調用，確保在 BASE_DIR (coding/) 下執行，這樣才能讀取到 GEMINI.md
+        result = subprocess.run(cmd, cwd=BASE_DIR, text=True, capture_output=False)
         if result.returncode != 0:
             log("ERROR", f"Gemini CLI failed with code {result.returncode}")
             return False
@@ -119,23 +144,22 @@ def main():
     
     try:
         while True:
-            # 每次循環重新加載狀態（可選，防止外部修改）
-            # state = load_state() 
-            
             if current_role == "builder":
                 log("LOOP", "Switching to BUILDER brain...")
-                
-                # 更新狀態
                 state["current_turn"] = "builder"
                 save_state(state)
 
-                # 觸發 Builder
-                success = run_gemini_cli("請執行 /vibe-build 流程。讀取最新的審計反饋（若有），並生成 handoff_notes.md。", CTX_BUILDER)
+                # 1. 切換 Context
+                if not swap_context("builder"):
+                    break
+
+                # 2. 觸發 Builder
+                success = run_gemini_cli("【指令】請執行 /vibe-build 流程。讀取 artifacts/ 下最新的文件（handoff 或 audit_approval），規劃下一步並生成 handoff_notes.md。")
                 
                 if not success:
                     break
                 
-                # 等待產出
+                # 3. 等待產出
                 log("WAIT", "Waiting for 'handoff_notes.md' update...")
                 while True:
                     updated, new_time = check_file_update(FILE_BUILDER_HANDOFF, last_check_time)
@@ -150,18 +174,20 @@ def main():
                     
             elif current_role == "auditor":
                 log("LOOP", "Switching to AUDITOR brain...")
-                
-                # 更新狀態
                 state["current_turn"] = "auditor"
                 save_state(state)
 
-                # 觸發 Auditor
-                success = run_gemini_cli("請執行 /vibe-audit 流程。讀取 handoff_notes.md，並生成 audit_approval_*.md 或 auditor_handoff.md。", CTX_AUDITOR)
+                # 1. 切換 Context
+                if not swap_context("auditor"):
+                    break
+
+                # 2. 觸發 Auditor
+                success = run_gemini_cli("【指令】請執行 /vibe-audit 流程。仔細審閱 artifacts/handoff_notes.md 及相關代碼，生成 audit_approval_*.md (通過) 或 auditor_handoff.md (拒絕)。")
                 
                 if not success:
                     break
                 
-                # 等待產出
+                # 3. 等待產出
                 log("WAIT", "Waiting for Audit Decision...")
                 while True:
                     # 檢查拒絕
