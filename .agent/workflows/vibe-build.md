@@ -1,8 +1,4 @@
 ---
-description: Gemini Team (Builder) 標準作業程序：從需求分析、規劃、審計通過到代碼實現的全流程控制
----
-
----
 description: Team A (Builder) 標準作業程序：需求規劃、審計閘門控制、代碼實現與交付全流程
 ---
 
@@ -22,10 +18,11 @@ description: Team A (Builder) 標準作業程序：需求規劃、審計閘門�
 1.  **Read Constraints**: 讀取 `.agent/rules/constitution.md` 確認邊界。
 2.  **Pattern Search**: 使用 `search_knowledge` 查詢 `skills/` 中的現有模式。
 3.  **Generate Deliverables (強制產出 - 繁體中文)**:
+    * 所有產出物必須存放在 `./artifacts/` 目錄下
     * 在聊天視窗中輸出並寫入文件（如果需要）：
         1.  **實施計劃書 (Implementation Plan)**: `artifacts/implementation_plan.md`
-        2.  **任務執行清單 (Task Checklist)**: 原子化的步驟列表。
-        3.  **預執行報告 (Pre-implementation Report)**: 風險評估。
+        2.  **任務執行清單 (Task Checklist)**: `artifacts/task.md`原子化的步驟列表。
+        3.  **預執行報告 (Pre-implementation Report)**: `artifacts/report.md`。
 4.  **STOP & ASK**:
     * 輸出完上述文檔後，**強制停止**。
     * 通知用戶：「**Step 1 規劃完成。請呼叫 @auditor 進行審計。在獲得 '審計核准報告' 前，我將處於待機狀態。**」
